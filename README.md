@@ -4,9 +4,13 @@
 
   Minha finalidade é tornar o desenvolvimento de aplicações mais limpo e eficiente ao se tratar de logs. 
   
-  <br>
+<br>
 
-> :construction: Ainda estou em fase de desenvolvimento, mas logo menos vou estar na pista na versão BETA pra poder te ajudar :) :construction: 
+>:construction: Ainda estou em fase de desenvolvimento, porém logo menos vou estar na pista na versão BETA pra poder te ajudar :) :construction: 
+
+<div align=center>
+<img src="https://www.icegif.com/wp-content/uploads/2021/11/icegif-993.gif" height=10% width=10% /> 
+</div>
 
 <h2> Features </h2>
 
@@ -23,3 +27,4 @@
 Entre em contato com o assunto: <i>feature-stich-lib-logger</i>
 
 nyrocha018@gmail.com
+
