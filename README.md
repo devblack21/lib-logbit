@@ -2,7 +2,8 @@
 <h3> Olá eu sou o Stitch Lib Logger, uma biblioteca de logs em Java. </h3>
 
 
-  Minha finalidade é tornar o desenvolvimento de aplicações mais limpo e eficiente ao se tratar de logs. 
+  Minha finalidade é tornar o desenvolvimento de aplicações mais limpo e eficiente ao se tratar de logs. Estendo a classe Logger do pacote
+ java.util.logging, trazendo um nível mais alto e compatível com as necessidades dos sistemas atuais.
   
 <br>
 
@@ -16,11 +17,14 @@
 
   - :construction: <b>Versão BETA</b>
   
-     > Chamadas limpas e legiveis para logs da aplicação.
      
-     > Payload em formato JSON para compatibilidate em aplicações de registro e visualização de logs.
+     > Mensagens no formato JSON para compatibilidate em aplicações de registro e visualização de logs.
      
-     > Simplicidade na invocação dos logs 
+     > Simplicidade na invocação dos logs.
+     
+     > Baseado nas práticas dos 5W's.
+
+     > Configurável.
 
 ## 📁 Para sugestões de funcionalidades entre em contato nos emails abaixo:
 
