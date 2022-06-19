@@ -20,6 +20,6 @@
 
 ## 📁 Para sugestões de funcionalidades entre em contato nos emails abaixo:
 
-Entre em contato com o assunto: feature-stich-lib-logger
+Entre em contato com o assunto: <i>feature-stich-lib-logger</i>
 
 nyrocha018@gmail.com
