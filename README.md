@@ -6,11 +6,11 @@
   
   <br>
 
-> :construction: Ainda estou em fase de desenvolvimento, mas jájá vou estar na pista pra poder te ajudar :) :construction: 
+> :construction: Ainda estou em fase de desenvolvimento, mas logo menos vou estar na pista na versão BETA pra poder te ajudar :) :construction: 
 
-<h2> Features esperadas </h2>
+<h2> Features </h2>
 
-  - Version BETA 
+  - :construction: <b>Versão BETA</b>
   
      > Chamadas limpas e legiveis para logs da aplicação.
      
@@ -19,5 +19,7 @@
      > Simplicidade na invocação dos logs 
 
 ## 📁 Para sugestões de funcionalidades entre em contato nos emails abaixo:
+
+Entre em contato com o assunto: feature-stich-lib-logger
 
 nyrocha018@gmail.com
