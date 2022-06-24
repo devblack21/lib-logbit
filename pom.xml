@@ -6,7 +6,7 @@
   <groupId>br.com.devblack</groupId>
   <artifactId>stitch-lib-log</artifactId>
 
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
 
   <name>StitchLibLog</name>
 
@@ -58,7 +58,6 @@
       <id>github</id>
       <name>StitchLibLog Repository</name>
       <url>https://maven.pkg.github.com/devblack21/Stitch-Lib-Logger</url>
-      <uniqueVersion>true</uniqueVersion>
     </repository>
   </distributionManagement>
 
