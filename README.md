@@ -3,7 +3,7 @@
 
 
   Minha finalidade é tornar o desenvolvimento de aplicações mais limpo e eficiente ao se tratar de logs. Sou baseado na classe <b>Logger</b> do pacote
- <i>java.util.logging</i>, trazendo um nível mais alto e compatível com as necessidades dos sistemas atuais.  
+ <i>java.util.logging</i>, trazendo um nível mais alto e compatível com as necessidades dos sistemas atuais.   
     
 <br>
 
