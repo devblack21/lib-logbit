@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LogObject implements Serializable {
 	
+	
 	private String correlationId = null;
 	private String transactionId = null;
 	private String threadId = null;
