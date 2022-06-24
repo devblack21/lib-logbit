@@ -5,7 +5,7 @@
 
   <groupId>br.com.devblack</groupId>
   <artifactId>stitch-lib-log</artifactId>
-
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
 
   <name>StitchLibLog</name>
