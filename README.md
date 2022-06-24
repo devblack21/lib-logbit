@@ -13,7 +13,7 @@
 <img src="https://www.icegif.com/wp-content/uploads/2021/11/icegif-993.gif" height=10% width=10% /> 
 </div>
 
-<h2> Features </h2>
+<h2> Features </h2> 
 
   - :construction: <b>Versão <a href="https://github.com/devblack21/Stitch-Lib-Logger/packages/1500407?version=0.0.1-SNAPSHOT" target="_blank"> BETA - 0.0.1-SNAPSHOT </a></b>
   
