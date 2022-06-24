@@ -15,7 +15,7 @@
 
 <h2> Features </h2>
 
-  - :construction: <b>Versão <a href="https://github.com/devblack21/Stitch-Lib-Logger/packages/1500407?version=0.0.1-SNAPSHOT"> BETA </a></b>
+  - :construction: <b>Versão <a href="https://github.com/devblack21/Stitch-Lib-Logger/packages/1500407?version=0.0.1-SNAPSHOT" target="_blank"> BETA </a></b>
   
      
      > Mensagens no formato JSON para compatibilidate em aplicações de registro e visualização de logs.
