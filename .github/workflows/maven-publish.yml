@@ -27,7 +27,7 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
     - run: cd /
-    - run: cd /stitch-lib-logger/StichLibLog
+    - run: cd StichLibLog
 
     - name: Test with Maven
       run: mvn test --file pom.xml
