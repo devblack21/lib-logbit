@@ -10,7 +10,7 @@
 >:construction: Ainda estou em fase de desenvolvimento, porém logo menos vou estar na pista na versão BETA pra poder te ajudar :) :construction: 
 
 <div align=center>
-<img src="https://www.icegif.com/wp-content/uploads/2021/11/icegif-993.gif" height=10% width=10% /> 
+<img src="https://www.icegif.com/wp-content/uploads/2021/11/icegif-993.gif" height=10% width=10% />  
 </div>
 
 <h2> Features </h2> 
