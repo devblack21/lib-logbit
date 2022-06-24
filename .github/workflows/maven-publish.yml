@@ -30,7 +30,9 @@ jobs:
     - run: cd StichLibLog
 
     - name: Test with Maven
-      run: mvn test --file pom.xml
+    - run: cd /
+    - run: cd StichLibLog
+    - run: mvn test --file pom.xml
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
