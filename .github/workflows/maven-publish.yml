@@ -31,8 +31,8 @@ jobs:
       
     
     - name: Test with Maven
-    - run: cd StichLibLog
-    - run: ls
+      working-directory: StichLibLog
+      run: ls
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
