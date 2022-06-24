@@ -21,7 +21,6 @@
     <apache.commons.version>3.12.0</apache.commons.version>
   </properties>
 
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
