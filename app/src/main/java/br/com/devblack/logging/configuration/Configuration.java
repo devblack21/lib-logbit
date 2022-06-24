@@ -1,3 +1,5 @@
+package br.com.devblack.logging.configuration;
+
 import org.slf4j.MDC;
 
 import java.net.InetAddress;
@@ -22,6 +24,12 @@ public class Configuration {
 	private boolean isCorrelationRandom = false;
 	private boolean isTransactionRandom = false;
 	
+	/**
+	 * @param applicationName : Nome da aplicação
+	 * @param organizationName : Nome da organização
+	 * @param hostAddress : Host da instancia de maquina
+	 * @param isThrowable : Se verdadeiro, quando passar um objeto Throwable para o log será aprensentado o printStackTrace da exceção
+	 */
 	public Configuration(final String applicationName, final String organizationName, final String hostAddress, final boolean isThrowable) {
 		this.applicationName = applicationName;
 		this.organizationName = organizationName;
@@ -107,7 +115,5 @@ public class Configuration {
 	public void disableThrowable() {
 		this.isThrowable = false;
 	}
-	
-	
 	
 }

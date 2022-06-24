@@ -1,3 +1,5 @@
+package br.com.devblack.logging;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 @JsonSerializableSchema
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LogObject implements Serializable {
-	
 	
 	private String correlationId = null;
 	private String transactionId = null;

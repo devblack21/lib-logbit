@@ -1,3 +1,7 @@
+package br.com.devblack.logging;
+
+import br.com.devblack.logging.configuration.Configuration;
+
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import static java.util.logging.Logger.getLogger;
-
 
 public class StitchLogger {
 	
