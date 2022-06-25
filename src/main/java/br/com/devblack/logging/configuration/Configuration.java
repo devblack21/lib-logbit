@@ -41,10 +41,10 @@ public class Configuration {
 		this.applicationName = applicationName;
 		this.organizationName = organizationName;
 		this.isThrowable = isThrowable;
-		this.hostAddress = getHostAddress();
+		this.hostAddress = getHost();
 	}
 	
-	private String getHostAddress() {
+	private String getHost() {
 		try {
 			return InetAddress.getLocalHost().getHostAddress();
 		} catch (final Exception e){
@@ -65,15 +65,15 @@ public class Configuration {
 	}
 	
 	public boolean isThrowable() {
-		return isThrowable;
+		return this.isThrowable;
 	}
 	
 	public String getApplicationName() {
-		return applicationName;
+		return this.applicationName;
 	}
 	
 	public String getOrganizationName() {
-		return organizationName;
+		return this.organizationName;
 	}
 	
 	public String getCorrelationId() {
@@ -82,6 +82,10 @@ public class Configuration {
 	
 	public String getTransactionId() {
 		return MDC.get(TRANSACTION_ID) ;
+	}
+	
+	public String getHostAddress() {
+		return this.hostAddress;
 	}
 	
 	public void setCorrelationId(final String correlationId) {

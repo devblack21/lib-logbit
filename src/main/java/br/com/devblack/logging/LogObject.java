@@ -26,6 +26,7 @@ public class LogObject implements Serializable {
 	private Instant current = null;
 	private long timeExecution = 0;
 	private String severity = null;
+	private String host = null;
 	
 	private LogObject() {}
 	
@@ -56,7 +57,11 @@ public class LogObject implements Serializable {
 	public Throwable getThrowable() {
 		return throwable;
 	}
-
+	
+	public String getHost() {
+		return host;
+	}
+	
 	public String getStart() {
 		if (Objects.nonNull(start)) return  String.valueOf(this.start);
 		return null;
@@ -92,6 +97,11 @@ public class LogObject implements Serializable {
 	
 	public LogObject setTransationId(final String transactionId) {
 		this.transactionId = transactionId;
+		return this;
+	}
+	
+	public LogObject setHost(final String host) {
+		this.host = host;
 		return this;
 	}
 	

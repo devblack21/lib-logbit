@@ -132,6 +132,7 @@ public class StitchLogger {
 				.setThreadId(String.valueOf(Thread.currentThread().getId()))
 				.setPayload(payload)
 				.setThrowable(throwable)
+				.setHost(configuration.getHostAddress())
 				.setTimeExecution(execution)
 				.setCurrent(Instant.now())
 				.setStart((Objects.nonNull(finish)) ? start : null)
