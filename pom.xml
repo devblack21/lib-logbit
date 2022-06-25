@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>br.com.devblack</groupId>
-  <artifactId>stitch-lib-log</artifactId>
+  <artifactId>stitch-lib-logger</artifactId>
   <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>StitchLibLog</name>
+  <name>StitchLibLogger</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -55,8 +55,8 @@
   <distributionManagement>
     <repository>
       <id>github</id>
-      <name>StitchLibLog Repository</name>
-      <url>https://maven.pkg.github.com/devblack21/Stitch-Lib-Logger</url>
+      <name>StitchLibLogger</name>
+      <url>https://maven.pkg.github.com/devblack21/stitch-lib-logger</url>
     </repository>
   </distributionManagement>
 

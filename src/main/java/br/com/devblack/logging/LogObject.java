@@ -59,13 +59,11 @@ public class LogObject implements Serializable {
 
 	public String getStart() {
 		if (Objects.nonNull(start)) return  String.valueOf(this.start);
-		
 		return null;
 	}
 	
 	public String getFinish() {
 		if (Objects.nonNull(finish)) return String.valueOf(this.finish);
-		
 		return null;
 	}
 	
