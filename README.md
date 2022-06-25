@@ -13,9 +13,9 @@
 <img src="https://www.icegif.com/wp-content/uploads/2021/11/icegif-993.gif" height=10% width=10% />  
 </div>
 
-<h2> Features </h2> 
+<h2> Versões e Features</h2> 
 
-  - :construction: <b>Versão <a href="https://github.com/devblack21/stitch-lib-logger/packages/1502088?version=0.0.1-SNAPSHOT" target="_blank"> BETA - 0.0.1-SNAPSHOT </a></b>
+  - :construction: <b>Versão <a href="https://github.com/devblack21/stitch-lib-logger/packages/1502193?version=0.0.1-SNAPSHOT" target="_blank"> BETA</a></b>
   
      
      > Mensagens no formato JSON para compatibilidate em aplicações de registro e visualização de logs.
@@ -28,7 +28,7 @@
 
 ## 📁 Para sugestões de funcionalidades entre em contato nos emails abaixo:
 
-Entre em contato com o assunto: <i>feature-stich-lib-logger</i>
+Entre em contato com o assunto: <i>feature-stitch-lib-logger</i>
 
 nyrocha018@gmail.com
 
