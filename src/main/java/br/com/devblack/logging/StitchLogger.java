@@ -43,6 +43,14 @@ public class StitchLogger {
 		configuration.enableRandomTransaction();
 	}
 	
+	public static void disableAutoCorrelation() {
+		configuration.disableRandomCorrelation();
+	}
+	
+	public static void disableAutoTransaction() {
+		configuration.disableRandomTransaction();
+	}
+	
 	public static void setCorrelationId(final String correlationId) {
 		configuration.setCorrelationId(correlationId);
 	}
@@ -51,65 +59,84 @@ public class StitchLogger {
 		configuration.setTransactionId(transactionId);
 	}
 	
-	private static void log(final Level level, final String logCode, final String message, final Object payload, final Throwable throwable) {
+	private static LogObject log(final Level level, final String logCode, final String message, final Object payload, final Throwable throwable) {
+		
 		StitchLogger.configuration.refresh();
-		getLogger(logCode).log(createRecord(level, logCode, message, payload, throwable));
+		
+		final LogRecord logRecord = new LogRecord(level, logCode);
+		final LogObject logObject = createObject(level, logCode, message, payload, throwable);
+		
+		logRecord.setLoggerName(logCode);
+		logRecord.setThreadID(Integer.parseInt(String.valueOf(Thread.currentThread().getId())));
+		logRecord.setInstant(Instant.now());
+		logRecord.setMessage(logObject.toString());
+		if (configuration.isThrowable()) logRecord.setThrown(throwable);
+		getLogger(logCode).log(logRecord);
+		
+		if (Objects.nonNull(finish)) {
+			cleanTime();
+		}
+		
+		return logObject;
 	}
 	
-	public static void info(final String logCode, final String msg, final Object payload) {
-		log(Level.INFO, logCode, msg, payload, null);
+	public static LogObject info(final String logCode, final String msg, final Object payload) {
+		return log(Level.INFO, logCode, msg, payload, null);
 	}
 	
-	public static void warning(final String logCode, final String msg, final Object payload, final Throwable throwable) {
-		log(Level.WARNING, logCode, msg, payload, throwable);
+	public static LogObject warning(final String logCode, final String msg, final Object payload, final Throwable throwable) {
+		return log(Level.WARNING, logCode, msg, payload, throwable);
 	}
 	
-	public static void warning(final String logCode, final String msg, final Object payload) {
-		log(Level.WARNING, logCode, msg, payload, null);
+	public static LogObject warning(final String logCode, final String msg, final Object payload) {
+		return log(Level.WARNING, logCode, msg, payload, null);
 	}
 	
-	public static void error(final String logCode, final String msg, final Object payload, final Throwable throwable) {
-		log(Level.SEVERE, logCode, msg, payload, throwable);
+	public static LogObject error(final String logCode, final String msg, final Object payload, final Throwable throwable) {
+		return log(Level.SEVERE, logCode, msg, payload, throwable);
 	}
 	
-	public static void error(final String logCode, final String msg, final Object payload) {
-		log(Level.SEVERE, logCode, msg, payload, null);
+	public static LogObject debug(final String logCode, final String msg, final Object payload, final Throwable throwable) {
+		return log(Level.ALL, logCode, msg, payload, throwable);
 	}
 	
-	public static void debug(final String logCode, final String msg, final Object payload, final Throwable throwable) {
-		log(Level.ALL, logCode, msg, payload, throwable);
+	public static LogObject debug(final String logCode, final String msg, final Object payload) {
+		return debug(logCode, msg, payload, null);
 	}
 	
-	public static void debug(final String logCode, final String msg, final Object payload) {
-		log(Level.ALL, logCode, msg, payload, null);
-	}
-	
-	public static void logInfoStart(final String logCode, final String msg, final Object payload) {
-		start = Instant.now();
-		startNano = System.nanoTime();
-		log(Level.INFO, logCode, msg, payload, null);
-	}
-	
-	public static void logWarningStart(final String logCode, final String msg, final Object payload, final Throwable throwable) {
-		start = Instant.now();
-		startNano = System.nanoTime();
-		log(Level.WARNING, logCode, msg, payload, throwable);
-	}
-	
-	public static void logInfoFinish(final String logCode, final String msg, final Object payload)  {
+	public static LogObject logInfoStart(final String logCode, final String msg, final Object payload) {
 		startTime();
-		log(Level.INFO, logCode, msg, payload, null);
+		return info(logCode, msg, payload);
 	}
 	
-	public static void logWarningFinish(final String logCode, final String msg, final Object payload, final Throwable throwable)  {
+	public static LogObject logWarningStart(final String logCode, final String msg, final Object payload) {
+		startTime();
+		return logWarningStart(logCode, msg, payload, null);
+	}
+	
+	public static LogObject logWarningStart(final String logCode, final String msg, final Object payload, final Throwable throwable) {
+		startTime();
+		return warning(logCode, msg, payload, throwable);
+	}
+	
+	public static LogObject logInfoFinish(final String logCode, final String msg, final Object payload)  {
 		stopTime();
-		log(Level.WARNING, logCode, msg, payload, throwable);
+		return info(logCode, msg, payload);
+	}
+	
+	public static LogObject logWarningFinish(final String logCode, final String msg, final Object payload)  {
+		stopTime();
+		return logWarningFinish(logCode, msg, payload, null);
+	}
+	
+	public static LogObject logWarningFinish(final String logCode, final String msg, final Object payload, final Throwable throwable)  {
+		stopTime();
+		return warning(logCode, msg, payload, throwable);
 	}
 	
 	private static void startTime() {
-		finish = Instant.now();
-		finishNano = System.nanoTime();
-		execution = getTimeExecution();
+		start = Instant.now();
+		startNano = System.nanoTime();
 	}
 	
 	private static void stopTime() {
@@ -118,12 +145,20 @@ public class StitchLogger {
 		execution = getTimeExecution();
 	}
 	
+	private static void cleanTime() {
+			finish = null;
+			finishNano = 0;
+			execution = 0;
+			start = null;
+			startNano = 0;
+	}
+	
 	private static long getTimeExecution() {
 		return finishNano - startNano;
 	}
 	
-	private static LogRecord createRecord(final java.util.logging.Level level, final String logCode, final String message, final Object payload, final Throwable throwable) {
-		final LogObject logObject = LogObject.init()
+	private static LogObject createObject(final java.util.logging.Level level, final String logCode, final String message, final Object payload, final Throwable throwable) {
+		return LogObject.init()
 				.setLogCode(logCode)
 				.setCorrelationId(configuration.getCorrelationId())
 				.setTransationId(configuration.getTransactionId())
@@ -138,15 +173,6 @@ public class StitchLogger {
 				.setStart((Objects.nonNull(finish)) ? start : null)
 				.setFinish(finish)
 				.build();
-		
-		final LogRecord logRecord = new LogRecord(level, logCode);
-		logRecord.setLoggerName(logCode);
-		logRecord.setThreadID(Integer.parseInt(String.valueOf(Thread.currentThread().getId())));
-		logRecord.setInstant(Instant.now());
-		logRecord.setMessage(logObject.toString());
-		if (configuration.isThrowable()) logRecord.setThrown(throwable);
-		
-		return logRecord;
 	}
 	
 }
