@@ -5,8 +5,8 @@
 
   <groupId>br.com.devblack</groupId>
   <artifactId>stitch-lib-logger</artifactId>
-  <packaging>pom</packaging>
-  <version>0.0.3-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <version>0.0.4-SNAPSHOT</version>
 
   <name>StitchLibLogger</name>
 
