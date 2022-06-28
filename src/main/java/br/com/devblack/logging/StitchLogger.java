@@ -3,6 +3,9 @@ package br.com.devblack.logging;
 import br.com.devblack.logging.configuration.Configuration;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,9 +19,9 @@ public class StitchLogger {
 	private static final Map<Level, String> mapLevels = new HashMap<>();
 
 	private static Configuration configuration = null;
-	private static Instant start = null;
+	private static ZonedDateTime start = null;
 	private static long startNano = 0;
-	private static Instant finish = null;
+	private static ZonedDateTime finish = null;
 	private static long finishNano = 0;
 	private static long execution = 0;
 	
@@ -135,12 +138,12 @@ public class StitchLogger {
 	}
 	
 	private static void startTime() {
-		start = Instant.now();
+		start = ZonedDateTime.now();
 		startNano = System.nanoTime();
 	}
 	
 	private static void stopTime() {
-		finish = Instant.now();
+		finish = ZonedDateTime.now();
 		finishNano = System.nanoTime();
 		execution = getTimeExecution();
 	}
@@ -169,7 +172,7 @@ public class StitchLogger {
 				.setThrowable(throwable)
 				.setHost(configuration.getHostAddress())
 				.setTimeExecution(execution)
-				.setCurrent(Instant.now())
+				.setCurrent(ZonedDateTime.now())
 				.setStart((Objects.nonNull(finish)) ? start : null)
 				.setFinish(finish)
 				.build();

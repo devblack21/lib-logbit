@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -21,9 +22,9 @@ public class LogObject implements Serializable {
 	private String message = null;
 	private Object payload = null;
 	private Throwable throwable = null;
-	private Instant start = null;
-	private Instant finish = null;
-	private Instant current = null;
+	private ZonedDateTime start = null;
+	private ZonedDateTime finish = null;
+	private ZonedDateTime current = null;
 	private long timeExecution = 0;
 	private String severity = null;
 	private String host = null;
@@ -63,12 +64,12 @@ public class LogObject implements Serializable {
 	}
 	
 	public String getStart() {
-		if (Objects.nonNull(start)) return  String.valueOf(this.start);
+		if (Objects.nonNull(start)) return  String.valueOf(this.start.toLocalDateTime());
 		return null;
 	}
 	
 	public String getFinish() {
-		if (Objects.nonNull(finish)) return String.valueOf(this.finish);
+		if (Objects.nonNull(finish)) return String.valueOf(this.finish.toLocalDateTime());
 		return null;
 	}
 	
@@ -77,7 +78,7 @@ public class LogObject implements Serializable {
 	}
 	
 	public String getCurrent() {
-		if (Objects.nonNull(current)) return String.valueOf(this.current);
+		if (Objects.nonNull(current)) return String.valueOf(this.current.toLocalDateTime());
 		return null;
 	}
 	
@@ -125,7 +126,7 @@ public class LogObject implements Serializable {
 		return this;
 	}
 	
-	public LogObject setCurrent(final Instant current) {
+	public LogObject setCurrent(final ZonedDateTime current) {
 		this.current = current;
 		return this;
 	}
@@ -140,12 +141,12 @@ public class LogObject implements Serializable {
 		return this;
 	}
 	
-	public LogObject setStart(final Instant start) {
+	public LogObject setStart(final ZonedDateTime start) {
 		this.start = start;
 		return this;
 	}
 	
-	public LogObject setFinish(final Instant finish) {
+	public LogObject setFinish(final ZonedDateTime finish) {
 		this.finish = finish;
 		return this;
 	}
