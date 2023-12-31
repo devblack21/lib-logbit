@@ -1,5 +1,5 @@
-# Stitch-Lib-Logger <img src="https://i.pinimg.com/originals/b2/5d/6b/b25d6bdc934ceafc2037b751ac0ad6c5.gif" height=10% width=10% /> 
-<h3> Olá eu sou o Stitch Lib Logger, uma biblioteca de logs em Java. </h3>
+# LogBit 
+<h3> Olá eu sou a Lib LogBit, uma biblioteca de logs em Java. </h3>
 
 
   Minha finalidade é tornar o desenvolvimento de aplicações mais limpo e eficiente ao se tratar de logs. Sou baseado na classe <b>Logger</b> do pacote
@@ -28,7 +28,7 @@
 
 ## 📁 Para sugestões de funcionalidades entre em contato nos emails abaixo:
 
-Entre em contato com o assunto: <i>feature-stitch-lib-logger</i>
+Entre em contato com o assunto: <i>feature-lib-logbit</i>
 
 nyrocha018@gmail.com
 
