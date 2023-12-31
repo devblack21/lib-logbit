@@ -1,4 +1,4 @@
-# LogBit 
+# LogBit
 <h3> Olá eu sou a Lib LogBit, uma biblioteca de logs em Java. </h3>
 
 
