@@ -119,4 +119,28 @@ public abstract class AbstractEngineBitLogger {
         return transactionId;
     }
 
+    public abstract LogObject info(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject warning(final String logCode, final String msg, final Object payload, final Throwable throwable);
+
+    public abstract LogObject warning(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject error(final String logCode, final String msg, final Object payload, final Throwable throwable);
+
+    public abstract LogObject debug(final String logCode, final String msg, final Object payload, final Throwable throwable);
+
+    public abstract LogObject debug(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject logInfoStart(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject logWarningStart(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject logWarningStart(final String logCode, final String msg, final Object payload, final Throwable throwable);
+
+    public abstract LogObject logInfoFinish(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject logWarningFinish(final String logCode, final String msg, final Object payload);
+
+    public abstract LogObject logWarningFinish(final String logCode, final String msg, final Object payload, final Throwable throwable);
+
 }

@@ -1,13 +1,12 @@
 package br.com.devblack.logging.facade;
 
-import br.com.devblack.logging.configuration.Configuration;
-import br.com.devblack.logging.bitlogger.EngineBitLogger;
+import br.com.devblack.logging.bitlogger.AbstractEngineBitLogger;
 
 public class Logger {
 
-	public static EngineBitLogger logger;
-	public static void configure(final Configuration configuration) {
-		logger = new EngineBitLogger(configuration);
+	public static AbstractEngineBitLogger logger;
+	public static void configure(final AbstractEngineBitLogger engineLogger) {
+		logger = engineLogger;
 	}
 
 	public static void setCorrelation(final String value) {

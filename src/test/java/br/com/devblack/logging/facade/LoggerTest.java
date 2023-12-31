@@ -1,7 +1,8 @@
 package br.com.devblack.logging.facade;
 
+import br.com.devblack.logging.bitlogger.AbstractEngineBitLogger;
+import br.com.devblack.logging.bitlogger.EngineBitLogger;
 import br.com.devblack.logging.configuration.Configuration;
-import br.com.devblack.logging.facade.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -15,7 +16,10 @@ public class LoggerTest {
 		
 		final String nameMethod = "shouldLogInfo";
 
-		Logger.configure(new Configuration(nameMethod, "testing", false));
+		final Configuration configuration = new Configuration(nameMethod, "testing", false);
+		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		
+		Logger.configure(engineLogger);
 
 		assertThatCode(() -> Logger.info("TESTING", nameMethod, null))
 				.doesNotThrowAnyException();
@@ -26,7 +30,9 @@ public class LoggerTest {
 
 		final String nameMethod = "shouldLogWarningStartWithPayload";
 
-		Logger.configure(new Configuration(nameMethod, "testing", false));
+		final Configuration configuration = new Configuration(nameMethod, "testing", false);
+		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		Logger.configure(engineLogger);
 
 		assertThatCode(() -> Logger.logWarningStart("TESTING", nameMethod, Map.of("key", "value")))
 				.doesNotThrowAnyException();
@@ -37,7 +43,9 @@ public class LoggerTest {
 
 		final String nameMethod = "shouldLogWarningStart";
 
-		Logger.configure(new Configuration(nameMethod, "testing", false));
+		final Configuration configuration = new Configuration(nameMethod, "testing", false);
+		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		Logger.configure(engineLogger);
 
 		assertThatCode(() -> Logger.logWarningStart("TESTING", nameMethod, null))
 				.doesNotThrowAnyException();
@@ -48,7 +56,10 @@ public class LoggerTest {
 
 		final String nameMethod = "shouldLogWarningFinish";
 
-		Logger.configure(new Configuration(nameMethod, "testing", false));
+		final Configuration configuration = new Configuration(nameMethod, "testing", false);
+		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		Logger.configure(engineLogger);
+
 		assertThatCode(() -> {
 			Logger.logInfoStart("TESTING", nameMethod, null);
 			Logger.logWarningFinish("TESTING", nameMethod, null);

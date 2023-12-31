@@ -64,6 +64,5 @@ public class EngineBitLogger extends AbstractEngineBitLogger {
 		stopTimer();
 		return warning(logCode, msg, payload, throwable);
 	}
-
 	
 }
