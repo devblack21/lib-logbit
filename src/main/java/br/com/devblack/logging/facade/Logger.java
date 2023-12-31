@@ -5,8 +5,9 @@ import br.com.devblack.logging.bitlogger.AbstractEngineBitLogger;
 public class Logger {
 
 	public static AbstractEngineBitLogger logger;
-	public static void configure(final AbstractEngineBitLogger engineLogger) {
-		logger = engineLogger;
+
+	public static void configure(final AbstractEngineBitLogger engineBitLogger) {
+		logger = engineBitLogger;
 	}
 
 	public static void setCorrelation(final String value) {
