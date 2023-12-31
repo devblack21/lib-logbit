@@ -1,11 +1,8 @@
-package br.com.devblack.logging;
+package br.com.devblack.logging.log;
 
 import br.com.devblack.logging.configuration.Configuration;
-import org.junit.jupiter.api.MethodOrderer;
-
-import org.junit.jupiter.api.Order;
+import br.com.devblack.logging.record.LogObject;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Map;
 import java.util.UUID;
@@ -15,28 +12,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class StitchLoggerTest {
-	
+
 	@Test
-	@Order(1)
 	public void shouldExceptionNotConfigurationLog() {
-		StitchLogger.configure(null);
 		final RuntimeException runtimeException = new RuntimeException();
-		final Exception exception = assertThrows(RuntimeException.class, () -> StitchLogger.error("","", null, runtimeException));
+		final Exception exception = assertThrows(RuntimeException.class, () -> {
+			StitchLogger.configure(null);
+			StitchLogger.error("","", null, runtimeException);
+		});
 		assertThat(exception, notNullValue());
 	}
 	
 	@Test
-	@Order(2)
 	public void shouldConfigureLog() {
 	
 		final Configuration configuration = new Configuration("testing", "stitch", false);
 		
 		StitchLogger.configure(configuration);
-		
-		assertThat(configuration.getCorrelationId(), nullValue());
-		assertThat(configuration.getTransactionId(), nullValue());
+
 		assertThat(configuration.getApplicationName(), is("testing"));
 		assertThat(configuration.getOrganizationName(), is("stitch"));
 		assertThat(configuration.isThrowable(), is(Boolean.FALSE));
@@ -44,7 +38,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(3)
 	public void shouldLogInfo() {
 		
 		final String nameMethod = "shouldLogInfo";
@@ -52,7 +45,7 @@ public class StitchLoggerTest {
 		StitchLogger.configure(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = StitchLogger.info("TESTING", nameMethod, null);
-			
+
 			assertThat(logObject, notNullValue());
 			assertThat(logObject.getMessage(), is(nameMethod));
 			assertThat(logObject.getLogCode(), is("TESTING"));
@@ -73,7 +66,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(4)
 	public void shouldLogInfoWithPayload() {
 		
 		final String nameMethod = "shouldLogInfoWithPayload";
@@ -102,7 +94,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(5)
 	public void shouldLogInfoStartWithPayload() {
 		
 		final String nameMethod = "shouldLogInfoStartWithPayload";
@@ -132,7 +123,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(6)
 	public void shouldLogInfoStart() {
 		
 		final String nameMethod = "shouldLogInfoStart";
@@ -162,7 +152,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(7)
 	public void shouldLogInfoFinish() {
 		
 		final String nameMethod = "shouldLogInfoFinish";
@@ -193,7 +182,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(8)
 	public void shouldLogInfoFinishWithPayload() {
 		
 		final String nameMethod = "shouldLogInfoFinishWithPayload";
@@ -222,47 +210,17 @@ public class StitchLoggerTest {
 			
 		}).doesNotThrowAnyException();
 	}
+
 	
 	@Test
-	@Order(9)
-	public void shouldConfigureEnableCorrelationAndTransactinLog() {
-		
-		final Configuration configuration = new Configuration("shouldConfigureEnableCorrelationAndTransactinLog", "stitch", false);
-		StitchLogger.configure(configuration);
-		StitchLogger.enableAutoCorrelation();
-		StitchLogger.enableAutoTransaction();
-		
-		assertThatCode(() -> {
-			final LogObject logObject = StitchLogger.info("TESTING", "shouldConfigureEnableCorrelationAndTransactinLog", Map.of("key", "value"));
-			
-			final String json = "{\"correlationId\":\""+logObject.getCorrelationId()+"\",\"transactionId\":\""+logObject.getTransactionId()+"\",\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\"shouldConfigureEnableCorrelationAndTransactinLog\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
-			
-		}).doesNotThrowAnyException();
-		
-		assertThat(configuration.getCorrelationId(), notNullValue());
-		assertThat(configuration.getTransactionId(), notNullValue());
-		assertThat(configuration.getApplicationName(), is("shouldConfigureEnableCorrelationAndTransactinLog"));
-		assertThat(configuration.getOrganizationName(), is("stitch"));
-		assertThat(configuration.isThrowable(), is(Boolean.FALSE));
-		assertThat(configuration.getHostAddress(), notNullValue());
-	}
-	
-	@Test
-	@Order(10)
 	public void shouldConfigureDisableCorrelationAndTransactinLog() {
 		
 		final Configuration configuration = new Configuration("shouldConfigureDisableCorrelationAndTransactinLog", "stitch", false);
-		configuration.enableRandomCorrelation();
-		configuration.enableRandomTransaction();
+
 		StitchLogger.configure(configuration);
-		StitchLogger.disableAutoTransaction();
-		StitchLogger.disableAutoCorrelation();
 		
 		assertThatCode(() -> StitchLogger.info("TESTING", "shouldConfigureDisableCorrelationAndTransactinLog", Map.of("key", "value"))).doesNotThrowAnyException();
-		
-		assertThat(configuration.getCorrelationId(), nullValue());
-		assertThat(configuration.getTransactionId(), nullValue());
+
 		assertThat(configuration.getApplicationName(), is("shouldConfigureDisableCorrelationAndTransactinLog"));
 		assertThat(configuration.getOrganizationName(), is("stitch"));
 		assertThat(configuration.isThrowable(), is(Boolean.FALSE));
@@ -270,7 +228,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(11)
 	public void shouldLogWarning() {
 		
 		final String nameMethod = "shouldLogWarning";
@@ -299,7 +256,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(12)
 	public void shouldLogWarningWithPayload() {
 		
 		final String nameMethod = "shouldLogWarningWithPayload";
@@ -328,7 +284,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(13)
 	public void shouldLogWarningStartWithPayload() {
 		
 		final String nameMethod = "shouldLogWarningStartWithPayload";
@@ -358,7 +313,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(14)
 	public void shouldLogWarningStart() {
 		
 		final String nameMethod = "shouldLogWarningStart";
@@ -388,7 +342,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(15)
 	public void shouldLogWarningFinish() {
 		
 		final String nameMethod = "shouldLogWarningFinish";
@@ -419,7 +372,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(16)
 	public void shouldLogWarningFinishWithPayload() {
 		
 		final String nameMethod = "shouldLogWarningFinishWithPayload";
@@ -450,7 +402,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(17)
 	public void shouldLogError() {
 		
 		final String nameMethod = "shouldLogError";
@@ -477,7 +428,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(18)
 	public void shouldLogErrorWithPayload() {
 		
 		final String nameMethod = "shouldLogErrorWithPayload";
@@ -505,7 +455,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(19)
 	public void shouldLogDebug() {
 		
 		final String nameMethod = "shouldLogDebug";
@@ -533,7 +482,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(20)
 	public void shouldLogDebugWithPayload() {
 		
 		final String nameMethod = "shouldLogDebugWithPayload";
@@ -561,7 +509,6 @@ public class StitchLoggerTest {
 	}
 	
 	@Test
-	@Order(21)
 	public void shouldLogWhenInsertCorrelationAndTransaction() {
 
 		final String nameMethod = "shouldLogWhenInsertCorrelationAndTransaction";
@@ -590,37 +537,39 @@ public class StitchLoggerTest {
 			StitchLogger.setCorrelationId(UUID.randomUUID().toString());
 			StitchLogger.setTransactionId(UUID.randomUUID().toString());
 
-			logObject = StitchLogger.info("TESTING", nameMethod, Map.of("key", "value"));
+			final LogObject logObject2 = StitchLogger.info("TESTING", nameMethod, Map.of("key", "value"));
 
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), notNullValue());
-			assertThat(logObject.getTransactionId(), notNullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
+			assertThat(logObject2, notNullValue());
+			assertThat(logObject2.getMessage(), is(nameMethod));
+			assertThat(logObject2.getLogCode(), is("TESTING"));
+			assertThat(logObject2.getSeverity(), is("INFO"));
+			assertThat(logObject2.getThreadId(), notNullValue());
+			assertThat(logObject2.getHost(), notNullValue());
+			assertThat(logObject2.getPayload(), notNullValue());
+			assertThat(logObject2.getFinish(), nullValue());
+			assertThat(logObject2.getStart(), nullValue());
+			assertThat(logObject2.getCurrent(), notNullValue());
+			assertThat(logObject2.getCorrelationId(), notNullValue());
+			assertThat(logObject2.getTransactionId(), notNullValue());
+			assertThat(logObject2.getTimeExecution(), nullValue());
+			assertThat(logObject2.getThrowable(), nullValue());
 
-			final String jsonInserted = "{\"correlationId\":\""+logObject.getCorrelationId()+"\",\"transactionId\":\""+logObject.getTransactionId()+"\",\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(jsonInserted));
+			final String jsonInserted = "{\"correlationId\":\""+logObject2.getCorrelationId()+"\",\"transactionId\":\""+logObject2.getTransactionId()+"\",\"threadId\":\""+logObject2.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject2.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject2.getHost()+"\"}";
+			assertThat(logObject2.toString(), is(jsonInserted));
 			
 		}).doesNotThrowAnyException();
 	}
 	
 	
 	@Test
-	@Order(22)
 	public void shouldConfigureInsertHostAddress() {
 		
 		final String nameMethod = "shouldConfigureInsertHostAddress";
-		
-		StitchLogger.configure(new Configuration(nameMethod, "testing", "168.192.152.1", false));
+
+		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
+
+		StitchLogger.configure(configuration);
+
 		assertThatCode(() -> {
 			final LogObject logObject = StitchLogger.info("TESTING", nameMethod, null);
 			
@@ -639,6 +588,72 @@ public class StitchLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			
+		}).doesNotThrowAnyException();
+	}
+
+	@Test
+	public void shouldConfigureRandomCorrelationIdAndTransactionId() {
+
+		final String nameMethod = "shouldConfigureRandomCorrelationIdAndTransactionId";
+
+		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
+
+		configuration.enableRandomCorrelation();
+		configuration.enableRandomTransaction();
+
+		StitchLogger.configure(configuration);
+
+		assertThatCode(() -> {
+			final LogObject logObject = StitchLogger.info("TESTING", nameMethod, null);
+
+			assertThat(logObject, notNullValue());
+			assertThat(logObject.getMessage(), is(nameMethod));
+			assertThat(logObject.getLogCode(), is("TESTING"));
+			assertThat(logObject.getSeverity(), is("INFO"));
+			assertThat(logObject.getThreadId(), notNullValue());
+			assertThat(logObject.getHost(), is("168.192.152.1"));
+			assertThat(logObject.getPayload(), nullValue());
+			assertThat(logObject.getFinish(), nullValue());
+			assertThat(logObject.getStart(), nullValue());
+			assertThat(logObject.getCurrent(), notNullValue());
+			assertThat(logObject.getCorrelationId(), notNullValue());
+			assertThat(logObject.getTransactionId(), notNullValue());
+			assertThat(logObject.getTimeExecution(), nullValue());
+			assertThat(logObject.getThrowable(), nullValue());
+
+		}).doesNotThrowAnyException();
+	}
+
+	@Test
+	public void shouldConfigureNotRandomCorrelationIdAndTransactionId() {
+
+		final String nameMethod = "shouldConfigureRandomCorrelationIdAndTransactionId";
+
+		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
+
+		configuration.disableRandomCorrelation();
+		configuration.disableRandomTransaction();
+
+		StitchLogger.configure(configuration);
+
+		assertThatCode(() -> {
+			final LogObject logObject = StitchLogger.info("TESTING", nameMethod, null);
+
+			assertThat(logObject, notNullValue());
+			assertThat(logObject.getMessage(), is(nameMethod));
+			assertThat(logObject.getLogCode(), is("TESTING"));
+			assertThat(logObject.getSeverity(), is("INFO"));
+			assertThat(logObject.getThreadId(), notNullValue());
+			assertThat(logObject.getHost(), is("168.192.152.1"));
+			assertThat(logObject.getPayload(), nullValue());
+			assertThat(logObject.getFinish(), nullValue());
+			assertThat(logObject.getStart(), nullValue());
+			assertThat(logObject.getCurrent(), notNullValue());
+			assertThat(logObject.getCorrelationId(), nullValue());
+			assertThat(logObject.getTransactionId(), nullValue());
+			assertThat(logObject.getTimeExecution(), nullValue());
+			assertThat(logObject.getThrowable(), nullValue());
+
 		}).doesNotThrowAnyException();
 	}
 	
