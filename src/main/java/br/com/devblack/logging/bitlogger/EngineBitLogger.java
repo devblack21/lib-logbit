@@ -1,13 +1,13 @@
-package br.com.devblack.logging.log;
+package br.com.devblack.logging.bitlogger;
 
 import br.com.devblack.logging.configuration.Configuration;
 import br.com.devblack.logging.record.LogObject;
 
 import java.util.logging.Level;
 
-public class ConcreteLogger extends AbstractLogger {
+public class EngineBitLogger extends AbstractEngineBitLogger {
 
-	public ConcreteLogger(final Configuration configuration) {
+	public EngineBitLogger(final Configuration configuration) {
         super(configuration);
 	}
 

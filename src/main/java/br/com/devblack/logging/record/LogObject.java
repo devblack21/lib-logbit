@@ -158,9 +158,8 @@ public class LogObject implements Serializable {
 	public LogObject build() {
 		return this;
 	}
-	
-	@Override
-	public String toString() {
+
+	public String json() {
 		try {
 			return new JsonMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {

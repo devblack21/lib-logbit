@@ -1,4 +1,4 @@
-package br.com.devblack.logging.log;
+package br.com.devblack.logging.bitlogger;
 
 import br.com.devblack.logging.configuration.Configuration;
 import br.com.devblack.logging.record.LogObject;
@@ -14,7 +14,7 @@ import java.util.logging.LogRecord;
 
 import static java.util.logging.Logger.getLogger;
 
-public abstract class AbstractLogger {
+public abstract class AbstractEngineBitLogger {
     private static final Map<Level, String> mapLevels = new HashMap<>();
     private static Configuration configuration = null;
     private static final LogContext logContext = new LogContext();
@@ -26,7 +26,7 @@ public abstract class AbstractLogger {
         mapLevels.put(Level.WARNING, "WARNING");
     }
 
-    AbstractLogger(final Configuration value) {
+    AbstractEngineBitLogger(final Configuration value) {
         if (Objects.isNull(value)){
             throw new IllegalArgumentException("");
         }
@@ -47,7 +47,7 @@ public abstract class AbstractLogger {
         logRecord.setLoggerName(logCode);
         logRecord.setThreadID(Integer.parseInt(String.valueOf(Thread.currentThread().getId())));
         logRecord.setInstant(Instant.now());
-        logRecord.setMessage(logObject.toString());
+        logRecord.setMessage(logObject.json());
 
         if (configuration.isThrowable()) {
             logRecord.setThrown(throwable);

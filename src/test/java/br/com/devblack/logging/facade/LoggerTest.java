@@ -1,22 +1,23 @@
-package br.com.devblack.logging.log;
+package br.com.devblack.logging.facade;
 
 import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.facade.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-public class StitchLoggerTest {
+public class LoggerTest {
 
 	@Test
 	public void shouldLogInfo() {
 		
 		final String nameMethod = "shouldLogInfo";
 
-		StitchLogger.configure(new Configuration(nameMethod, "testing", false));
+		Logger.configure(new Configuration(nameMethod, "testing", false));
 
-		assertThatCode(() -> StitchLogger.info("TESTING", nameMethod, null))
+		assertThatCode(() -> Logger.info("TESTING", nameMethod, null))
 				.doesNotThrowAnyException();
 	}
 
@@ -25,9 +26,9 @@ public class StitchLoggerTest {
 
 		final String nameMethod = "shouldLogWarningStartWithPayload";
 
-		StitchLogger.configure(new Configuration(nameMethod, "testing", false));
+		Logger.configure(new Configuration(nameMethod, "testing", false));
 
-		assertThatCode(() -> StitchLogger.logWarningStart("TESTING", nameMethod, Map.of("key", "value")))
+		assertThatCode(() -> Logger.logWarningStart("TESTING", nameMethod, Map.of("key", "value")))
 				.doesNotThrowAnyException();
 	}
 
@@ -36,9 +37,9 @@ public class StitchLoggerTest {
 
 		final String nameMethod = "shouldLogWarningStart";
 
-		StitchLogger.configure(new Configuration(nameMethod, "testing", false));
+		Logger.configure(new Configuration(nameMethod, "testing", false));
 
-		assertThatCode(() -> StitchLogger.logWarningStart("TESTING", nameMethod, null))
+		assertThatCode(() -> Logger.logWarningStart("TESTING", nameMethod, null))
 				.doesNotThrowAnyException();
 	}
 
@@ -47,10 +48,10 @@ public class StitchLoggerTest {
 
 		final String nameMethod = "shouldLogWarningFinish";
 
-		StitchLogger.configure(new Configuration(nameMethod, "testing", false));
+		Logger.configure(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			StitchLogger.logInfoStart("TESTING", nameMethod, null);
-			StitchLogger.logWarningFinish("TESTING", nameMethod, null);
+			Logger.logInfoStart("TESTING", nameMethod, null);
+			Logger.logWarningFinish("TESTING", nameMethod, null);
 		})
 		.doesNotThrowAnyException();
 	}

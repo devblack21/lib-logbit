@@ -1,12 +1,13 @@
-package br.com.devblack.logging.log;
+package br.com.devblack.logging.facade;
 
 import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.bitlogger.EngineBitLogger;
 
-public class StitchLogger {
+public class Logger {
 
-	public static ConcreteLogger logger;
+	public static EngineBitLogger logger;
 	public static void configure(final Configuration configuration) {
-		logger = new ConcreteLogger(configuration);
+		logger = new EngineBitLogger(configuration);
 	}
 
 	public static void setCorrelation(final String value) {

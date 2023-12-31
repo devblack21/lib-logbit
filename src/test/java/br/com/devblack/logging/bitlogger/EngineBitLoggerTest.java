@@ -1,6 +1,7 @@
-package br.com.devblack.logging.log;
+package br.com.devblack.logging.bitlogger;
 
 import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.bitlogger.EngineBitLogger;
 import br.com.devblack.logging.record.LogObject;
 import org.junit.jupiter.api.Test;
 
@@ -12,13 +13,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ConcreteLoggerTest {
+public class EngineBitLoggerTest {
 
 	@Test
 	public void shouldExceptionNotConfigurationLog() {
 		final RuntimeException runtimeException = new RuntimeException();
 		final Exception exception = assertThrows(RuntimeException.class, () -> {
-			final ConcreteLogger concreteLogger = new ConcreteLogger(null);
+			final EngineBitLogger concreteLogger = new EngineBitLogger(null);
 			concreteLogger.error("","", null, runtimeException);
 		});
 		assertThat(exception, notNullValue());
@@ -40,7 +41,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogInfo";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 
 
@@ -61,7 +62,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\"shouldLogInfo\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -70,7 +71,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoWithPayload";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
@@ -90,7 +91,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -99,7 +100,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoStartWithPayload";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
@@ -119,7 +120,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -129,7 +130,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoStart";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			
@@ -148,7 +149,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -158,7 +159,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoFinish";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			final LogObject logObject = concreteLogger.logInfoFinish("TESTING", nameMethod, null);
@@ -178,7 +179,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), notNullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -188,7 +189,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoFinishWithPayload";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
 			final LogObject logObject = concreteLogger.logInfoFinish("TESTING", nameMethod, Map.of("key", "value"));
@@ -208,7 +209,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), notNullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -219,7 +220,7 @@ public class ConcreteLoggerTest {
 		
 		final Configuration configuration = new Configuration("shouldConfigureDisableCorrelationAndTransactinLog", "stitch", false);
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(configuration);
+		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 		
 		assertThatCode(() -> concreteLogger.info("TESTING", "shouldConfigureDisableCorrelationAndTransactinLog", Map.of("key", "value"))).doesNotThrowAnyException();
 
@@ -234,7 +235,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogWarning";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 
 			final LogObject logObject = concreteLogger.warning("TESTING", nameMethod, null);
@@ -254,7 +255,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -263,7 +264,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningWithPayload";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.warning("TESTING", nameMethod, Map.of("key", "value"));
 			
@@ -282,7 +283,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -291,7 +292,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningStartWithPayload";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.logWarningStart("TESTING", nameMethod, Map.of("key", "value"));
 			
@@ -310,7 +311,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -320,7 +321,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningStart";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.logWarningStart("TESTING", nameMethod, null);
 			
@@ -339,7 +340,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -349,7 +350,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningFinish";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			final LogObject logObject = concreteLogger.logWarningFinish("TESTING", nameMethod, null);
@@ -369,7 +370,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), notNullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -379,7 +380,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningFinishWithPayload";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
 			final LogObject logObject = concreteLogger.logWarningFinish("TESTING", nameMethod, Map.of("key", "value"));
@@ -399,7 +400,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), notNullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -409,7 +410,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogError";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.error("TESTING", nameMethod, null, new RuntimeException("erro"));
 			
@@ -435,7 +436,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogErrorWithPayload";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.error("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
 			
@@ -462,7 +463,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogDebug";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.debug("TESTING", nameMethod, null, new RuntimeException("erro"));
 			
@@ -489,7 +490,7 @@ public class ConcreteLoggerTest {
 		
 		final String nameMethod = "shouldLogDebugWithPayload";
 		
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.debug("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
 			
@@ -516,7 +517,7 @@ public class ConcreteLoggerTest {
 
 		final String nameMethod = "shouldLogWhenInsertCorrelationAndTransaction";
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(new Configuration(nameMethod, "testing", false));
+		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			LogObject logObject = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
 
@@ -535,7 +536,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject.getTimeExecution(), nullValue());
 			assertThat(logObject.getThrowable(), nullValue());
 			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.toString(), is(json));
+			assertThat(logObject.json(), is(json));
 
 			concreteLogger.setCorrelationId(UUID.randomUUID().toString());
 			concreteLogger.setTransactionId(UUID.randomUUID().toString());
@@ -558,7 +559,7 @@ public class ConcreteLoggerTest {
 			assertThat(logObject2.getThrowable(), nullValue());
 
 			final String jsonInserted = "{\"correlationId\":\""+logObject2.getCorrelationId()+"\",\"transactionId\":\""+logObject2.getTransactionId()+"\",\"threadId\":\""+logObject2.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject2.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject2.getHost()+"\"}";
-			assertThat(logObject2.toString(), is(jsonInserted));
+			assertThat(logObject2.json(), is(jsonInserted));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -571,7 +572,7 @@ public class ConcreteLoggerTest {
 
 		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(configuration);
+		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);
@@ -604,7 +605,7 @@ public class ConcreteLoggerTest {
 		configuration.enableRandomCorrelation();
 		configuration.enableRandomTransaction();
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(configuration);
+		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);
@@ -637,7 +638,7 @@ public class ConcreteLoggerTest {
 		configuration.disableRandomCorrelation();
 		configuration.disableRandomTransaction();
 
-		final ConcreteLogger concreteLogger = new ConcreteLogger(configuration);
+		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 
 		assertThatCode(() -> {
 			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);

@@ -1,4 +1,4 @@
-package br.com.devblack.logging.log;
+package br.com.devblack.logging.bitlogger;
 
 import br.com.devblack.logging.configuration.Configuration;
 import org.slf4j.MDC;
