@@ -14,9 +14,10 @@ import java.util.logging.LogRecord;
 
 import static java.util.logging.Logger.getLogger;
 
-public abstract class AbstractStitchLogger {
+public abstract class AbstractLogger {
     private static final Map<Level, String> mapLevels = new HashMap<>();
     private static Configuration configuration = null;
+    private static final LogContext logContext = new LogContext();
 
     static {
         mapLevels.put(Level.SEVERE, "ERROR");
@@ -25,10 +26,13 @@ public abstract class AbstractStitchLogger {
         mapLevels.put(Level.WARNING, "WARNING");
     }
 
-    static void setConfig(final Configuration value) {
+    AbstractLogger(final Configuration value) {
+        if (Objects.isNull(value)){
+            throw new IllegalArgumentException("");
+        }
         configuration = value;
-        StitchContext.clear();
-        StitchContext.setConfigurationContext(configuration);
+        logContext.clear();
+        logContext.setConfigurationContext(configuration);
     }
     protected static LogObject log(final Level level,
                                  final String logCode,
@@ -51,7 +55,7 @@ public abstract class AbstractStitchLogger {
 
         getLogger(logCode).log(logRecord);
 
-        StitchContext.clearDurationTime();
+        logContext.clearDurationTime();
 
         return logObject;
     }
@@ -72,30 +76,30 @@ public abstract class AbstractStitchLogger {
                 .setPayload(payload)
                 .setThrowable(throwable)
                 .setHost(configuration.getHostAddress())
-                .setTimeExecution(StitchContext.getExecutionDuration())
+                .setTimeExecution(logContext.getExecutionDuration())
                 .setCurrent(ZonedDateTime.now())
-                .setStart(StitchContext.isFinish() ? StitchContext.getStart() : null)
-                .setFinish(StitchContext.getFinishDateTime())
+                .setStart(logContext.isFinish() ? logContext.getStart() : null)
+                .setFinish(logContext.getFinishDateTime())
                 .build();
     }
 
-    static void startTimer() {
-        StitchContext.startTimer();
+    void startTimer() {
+        logContext.startTimer();
     }
-    static void stopTimer() {
-        StitchContext.stopTimer();
+    void stopTimer() {
+        logContext.stopTimer();
     }
-    public static void setCorrelationId(final String correlationId) {
-        StitchContext.setCorrelationId(correlationId);
+    public void setCorrelationId(final String correlationId) {
+        logContext.setCorrelationId(correlationId);
     }
 
-    public static void setTransactionId(final String transactionId) {
-        StitchContext.setTransactionId(transactionId);
+    public void setTransactionId(final String transactionId) {
+        logContext.setTransactionId(transactionId);
     }
 
     public static String getCorrelationId() {
 
-        final String correlationId = StitchContext.getCorrelationId();
+        final String correlationId = logContext.getCorrelationId();
 
         if (Objects.isNull(correlationId) && configuration.isCorrelationRandom()) {
             return UUID.randomUUID().toString();
@@ -104,10 +108,9 @@ public abstract class AbstractStitchLogger {
         return correlationId;
     }
 
-
     public static String getTransactionId() {
 
-        final String transactionId = StitchContext.getTransactionId();
+        final String transactionId = logContext.getTransactionId();
 
         if (Objects.isNull(transactionId) && configuration.isTransactionRandom()) {
             return UUID.randomUUID().toString();

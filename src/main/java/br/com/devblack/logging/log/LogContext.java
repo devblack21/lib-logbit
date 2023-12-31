@@ -6,47 +6,47 @@ import org.slf4j.MDC;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class StitchContext {
+public class LogContext {
     public static final String APPLICATION_NAME = "applicationName";
     public static final String HOST_ADDRESS = "hostAddress";
     public static final String ORGANIZATION_NAME = "organizationName";
     public static final String CORRELATION_ID = "correlationId";
     public static final String TRANSACTION_ID = "transactionId";
-    private static ZonedDateTime startDateTime = null;
-    private static long startNano = 0;
-    private static ZonedDateTime finishDateTime = null;
-    private static long finishNano = 0;
-    private static String correlationId = null;
-    private static String transactionId = null;
-    public StitchContext() {}
+    private ZonedDateTime startDateTime = null;
+    private long startNano = 0;
+    private ZonedDateTime finishDateTime = null;
+    private long finishNano = 0;
+    private String correlationId = null;
+    private String transactionId = null;
+    public LogContext() {}
 
-    public static long getExecutionDuration() {
+    public long getExecutionDuration() {
         return finishNano - startNano;
     }
 
-    public static boolean isFinish() {
+    public boolean isFinish() {
         return Objects.nonNull(finishDateTime);
     }
 
-    public static ZonedDateTime getStart() {
+    public ZonedDateTime getStart() {
         return startDateTime;
     }
 
-    public static ZonedDateTime getFinishDateTime() {
+    public ZonedDateTime getFinishDateTime() {
         return finishDateTime;
     }
 
-    protected static void startTimer() {
+    protected void startTimer() {
         startDateTime = ZonedDateTime.now();
-        startNano = System.nanoTime();
+        startNano = startDateTime.getNano();
     }
 
-    protected static void stopTimer() {
+    protected void stopTimer() {
         finishDateTime = ZonedDateTime.now();
-        finishNano = System.nanoTime();
+        finishNano = finishDateTime.getNano();
     }
 
-    public static void clearDurationTime() {
+    public void clearDurationTime() {
         if (Objects.nonNull(finishDateTime)) {
             finishDateTime = null;
             finishNano = 0;
@@ -55,7 +55,7 @@ public class StitchContext {
         }
     }
 
-    public static void clear() {
+    public void clear() {
         correlationId = null;
         transactionId = null;
         finishDateTime = null;
@@ -64,25 +64,25 @@ public class StitchContext {
         startNano = 0;
     }
 
-    public static String getCorrelationId() {
+    public String getCorrelationId() {
         return correlationId;
     }
 
-    public static String getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public static void setCorrelationId(final String value) {
+    public void setCorrelationId(final String value) {
         MDC.put(CORRELATION_ID, value);
         correlationId = value;
     }
 
-    public static void setTransactionId(String value) {
+    public void setTransactionId(String value) {
         MDC.put(TRANSACTION_ID, value);
         transactionId = value;
     }
 
-    public static void setConfigurationContext(final Configuration value) {
+    public void setConfigurationContext(final Configuration value) {
         MDC.put(APPLICATION_NAME, value.getApplicationName());
         MDC.put(ORGANIZATION_NAME, value.getOrganizationName());
         MDC.put(HOST_ADDRESS, value.getHostAddress());

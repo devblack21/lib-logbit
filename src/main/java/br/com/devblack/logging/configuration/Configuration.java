@@ -5,20 +5,13 @@ import java.net.InetAddress;
 public class Configuration {
 
 	private static final String EMPTY = "";
-
 	private final String applicationName;
 	private final String organizationName;
 	private final String hostAddress;
 	private boolean isThrowable;
 	private boolean isCorrelationRandom = false;
 	private boolean isTransactionRandom = false;
-	
-	/**
-	 * @param applicationName : Nome da aplicação
-	 * @param organizationName : Nome da organização
-	 * @param hostAddress : Host da instancia de maquina
-	 * @param isThrowable : Se verdadeiro, quando passar um objeto Throwable para o log será apresentado o printStackTrace da exceção
-	 */
+
 	public Configuration(final String applicationName,
 						 final String organizationName,
 						 final String hostAddress,
