@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>br.com.devblack</groupId>
-  <artifactId>stitch-lib-logger</artifactId>
+  <artifactId>logbit</artifactId>
   <packaging>jar</packaging>
   <version>0.0.3-SNAPSHOT</version>
 
-  <name>StitchLibLogger</name>
+  <name>LogBit</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,8 +85,8 @@
   <distributionManagement>
     <repository>
       <id>github</id>
-      <name>StitchLibLogger</name>
-      <url>https://maven.pkg.github.com/devblack21/stitch-lib-logger</url>
+      <name>LogBit</name>
+      <url>https://maven.pkg.github.com/devblack21/lib-logbit</url>
     </repository>
   </distributionManagement>
 

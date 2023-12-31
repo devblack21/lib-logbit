@@ -8,6 +8,13 @@ public class StitchLogger {
 	public static void configure(final Configuration configuration) {
 		logger = new ConcreteLogger(configuration);
 	}
+
+	public static void setCorrelation(final String value) {
+		logger.setCorrelationId(value);
+	}
+	public static void setTransaction(final String value) {
+		logger.setTransactionId(value);
+	}
 	
 	public static void info(final String logCode, final String msg, final Object payload) {
 		logger.info(logCode, msg, payload);

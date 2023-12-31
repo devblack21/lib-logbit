@@ -5,6 +5,7 @@ import org.slf4j.MDC;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 public class LogContext {
     public static final String APPLICATION_NAME = "applicationName";
@@ -65,11 +66,13 @@ public class LogContext {
     }
 
     public String getCorrelationId() {
-        return correlationId;
+        return Optional.ofNullable(MDC.get(CORRELATION_ID))
+                .orElse(correlationId);
     }
 
     public String getTransactionId() {
-        return transactionId;
+        return Optional.ofNullable(MDC.get(TRANSACTION_ID))
+                .orElse(transactionId);
     }
 
     public void setCorrelationId(final String value) {
