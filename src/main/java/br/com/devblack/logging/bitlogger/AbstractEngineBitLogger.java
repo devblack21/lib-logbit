@@ -28,7 +28,7 @@ public abstract class AbstractEngineBitLogger {
 
     AbstractEngineBitLogger(final Configuration value) {
         if (Objects.isNull(value)){
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("Configuration value must not be null");
         }
         configuration = value;
         logContext.clear();
