@@ -1,4 +1,4 @@
-# <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo2.png" height=15% width=15% />#gh-dark-mode-only
+# <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo2.png#gh-dark-mode-only" height=15% width=15% />
 
 <h3> Hi, I'm Lib LogBit, a logging library in Java. </h3>
 
