@@ -1,4 +1,4 @@
-# LogBit
+# <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo2.png" height=15% width=15% /> 
 <h3> Olá eu sou a Lib LogBit, uma biblioteca de logs em Java. </h3>
 
 
