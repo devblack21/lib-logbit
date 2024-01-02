@@ -24,9 +24,11 @@ jobs:
         distribution: 'temurin'
         server-id: central # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-        server-username: ${{ secrets.SONATYPE_USER }}
-        server-password: ${{ secrets.SONATYPE_PASSWORD }}
-
+        server-username: USER
+        server-password: PASS
+      env:
+        USER: ${{ secrets.SONATYPE_USER }}
+        PASS: ${{ secrets.SONATYPE_PASSWORD }}
     - name: Test with Maven
       run: mvn test --file pom.xml
 
