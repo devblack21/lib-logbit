@@ -36,5 +36,3 @@ jobs:
       run: mvn --batch-mode deploy
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
-        MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
