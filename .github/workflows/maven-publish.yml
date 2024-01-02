@@ -23,6 +23,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         server-id: central # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
         server-username: ${{ secrets.SONATYPE_USER }}
         server-password: ${{ secrets.SONATYPE_PASSWORD }}
 
@@ -33,6 +34,8 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn --batch-mode deploy
+      run: mvn --batch-mode deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
+        MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
+        MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
