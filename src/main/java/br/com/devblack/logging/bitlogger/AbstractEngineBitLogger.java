@@ -15,6 +15,7 @@ import java.util.logging.LogRecord;
 import static java.util.logging.Logger.getLogger;
 
 public abstract class AbstractEngineBitLogger {
+
     private static final Map<Level, String> mapLevels = new HashMap<>();
     private static Configuration configuration = null;
     private static final LogContext logContext = new LogContext();
@@ -86,12 +87,15 @@ public abstract class AbstractEngineBitLogger {
     void startTimer() {
         logContext.startTimer();
     }
+
     void stopTimer() {
         logContext.stopTimer();
     }
+
     public void setCorrelationId(final String correlationId) {
         logContext.setCorrelationId(correlationId);
     }
+
 
     public void setTransactionId(final String transactionId) {
         logContext.setTransactionId(transactionId);

@@ -2,7 +2,7 @@ package br.com.devblack.logging.facade;
 
 import br.com.devblack.logging.bitlogger.AbstractEngineBitLogger;
 
-public class Logger {
+public class LogBit {
 
 	public static AbstractEngineBitLogger logger;
 

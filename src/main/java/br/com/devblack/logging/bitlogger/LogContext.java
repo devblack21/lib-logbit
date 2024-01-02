@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class LogContext {
+
     public static final String APPLICATION_NAME = "applicationName";
     public static final String HOST_ADDRESS = "hostAddress";
     public static final String ORGANIZATION_NAME = "organizationName";

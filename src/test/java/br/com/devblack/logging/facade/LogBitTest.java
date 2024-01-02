@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
-public class LoggerTest {
+public class LogBitTest {
 
 	@Test
 	public void shouldLogInfo() {
@@ -19,9 +19,9 @@ public class LoggerTest {
 		final Configuration configuration = new Configuration(nameMethod, "testing", false);
 		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
 		
-		Logger.configure(engineLogger);
+		LogBit.configure(engineLogger);
 
-		assertThatCode(() -> Logger.info("TESTING", nameMethod, null))
+		assertThatCode(() -> LogBit.info("TESTING", nameMethod, null))
 				.doesNotThrowAnyException();
 	}
 
@@ -32,9 +32,9 @@ public class LoggerTest {
 
 		final Configuration configuration = new Configuration(nameMethod, "testing", false);
 		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
-		Logger.configure(engineLogger);
+		LogBit.configure(engineLogger);
 
-		assertThatCode(() -> Logger.logWarningStart("TESTING", nameMethod, Map.of("key", "value")))
+		assertThatCode(() -> LogBit.logWarningStart("TESTING", nameMethod, Map.of("key", "value")))
 				.doesNotThrowAnyException();
 	}
 
@@ -45,9 +45,9 @@ public class LoggerTest {
 
 		final Configuration configuration = new Configuration(nameMethod, "testing", false);
 		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
-		Logger.configure(engineLogger);
+		LogBit.configure(engineLogger);
 
-		assertThatCode(() -> Logger.logWarningStart("TESTING", nameMethod, null))
+		assertThatCode(() -> LogBit.logWarningStart("TESTING", nameMethod, null))
 				.doesNotThrowAnyException();
 	}
 
@@ -58,11 +58,11 @@ public class LoggerTest {
 
 		final Configuration configuration = new Configuration(nameMethod, "testing", false);
 		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
-		Logger.configure(engineLogger);
+		LogBit.configure(engineLogger);
 
 		assertThatCode(() -> {
-			Logger.logInfoStart("TESTING", nameMethod, null);
-			Logger.logWarningFinish("TESTING", nameMethod, null);
+			LogBit.logInfoStart("TESTING", nameMethod, null);
+			LogBit.logWarningFinish("TESTING", nameMethod, null);
 		})
 		.doesNotThrowAnyException();
 	}
