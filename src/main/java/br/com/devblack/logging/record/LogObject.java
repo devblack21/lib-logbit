@@ -1,12 +1,11 @@
-package br.com.devblack.logging;
+package br.com.devblack.logging.record;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -159,11 +158,10 @@ public class LogObject implements Serializable {
 	public LogObject build() {
 		return this;
 	}
-	
-	@Override
-	public String toString() {
+
+	public String json() {
 		try {
-			return new ObjectMapper().writeValueAsString(this);
+			return new JsonMapper().writeValueAsString(this);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}

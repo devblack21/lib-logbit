@@ -4,25 +4,33 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>br.com.devblack</groupId>
-  <artifactId>stitch-lib-logger</artifactId>
+  <artifactId>logbit</artifactId>
   <packaging>jar</packaging>
   <version>0.0.3-SNAPSHOT</version>
 
-  <name>StitchLibLogger</name>
+  <name>LogBit</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <junit.version>4.13.2</junit.version>
-    <logback.version>1.2.11</logback.version>
-    <slf4j.version>1.7.36</slf4j.version>
-    <fasterjackason.version>2.13.3</fasterjackason.version>
+    <logback.version>1.4.12</logback.version>
+    <slf4j.version>2.0.5</slf4j.version>
+    <fasterjackason.version>2.15.1</fasterjackason.version>
     <apache.commons.version>3.12.0</apache.commons.version>
-    <assertj.version>3.8.0</assertj.version>
+    <assertj.version>3.24.2</assertj.version>
     <hamcrest.version>2.2</hamcrest.version>
-    <junit.jupiter.version>5.8.2</junit.jupiter.version>
+    <junit.jupiter.version>5.9.2</junit.jupiter.version>
   </properties>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <dependencies>
     <dependency>
@@ -37,51 +45,45 @@
       <version>${slf4j.version}</version>
     </dependency>
     <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>${logback.version}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${fasterjackason.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>${apache.commons.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
       <version>${hamcrest.version}</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
-
-
   </dependencies>
 
   <distributionManagement>
     <repository>
       <id>github</id>
-      <name>StitchLibLogger</name>
-      <url>https://maven.pkg.github.com/devblack21/stitch-lib-logger</url>
+      <name>LogBit</name>
+      <url>https://maven.pkg.github.com/devblack21/lib-logbit</url>
     </repository>
   </distributionManagement>
 

@@ -1,34 +1,35 @@
-# LogBit 
-<h3> Olá eu sou a Lib LogBit, uma biblioteca de logs em Java. </h3>
+# <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo2.png#gh-dark-mode-only" height=15% width=15% /> <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo3.png#gh-light-mode-only" height=15% width=15% />
 
+<h3> Hi, I'm Lib LogBit, a logging library in Java. </h3>
 
-  Minha finalidade é tornar o desenvolvimento de aplicações mais limpo e eficiente ao se tratar de logs. Sou baseado na classe <b>Logger</b> do pacote
- <i>java.util.logging</i>, trazendo um nível mais alto e compatível com as necessidades dos sistemas atuais.   
+  
+My purpose is to make application development cleaner and more efficient when dealing with logs. I'm based on class <b>Logger</b> of package
+ <i>java.util.logging</i>, bringing a higher level and compatible with the needs of current systems.   
     
 <br>
 
->:construction: Ainda estou em fase de desenvolvimento, porém logo menos vou estar na pista na versão BETA pra poder te ajudar :) :construction: 
+>:construction: I'm still in the development phase, but I'll be on the track in the BETA version soon so I can help you. :) :construction: 
 
 <div align=center>
 <img src="https://www.icegif.com/wp-content/uploads/2021/11/icegif-993.gif" height=10% width=10% />  
 </div>
 
-<h2> Versões e Features</h2>  
+<h2> Versions and Features</h2>  
 
-  - :construction: <b>Versão <a href="https://github.com/devblack21/stitch-lib-logger/packages/1507865?version=0.0.2-SNAPSHOT" target="_blank"> BETA</a></b> (<i>temporária</i>)
+  - :construction: <b>Version <a href="https://github.com/devblack21/stitch-lib-logger/packages/1507865?version=0.0.2-SNAPSHOT" target="_blank"> BETA</a></b> (<i>temporary</i>)
   
      
-     > Mensagens no formato JSON para compatibilidate em aplicações de registro e visualização de logs.
+     > Messages in JSON format for compatibility with log recording and viewing applications.
      
-     > Simplicidade na invocação dos logs.
+     > Simplicity in invoking logs.
      
-     > Baseado nas práticas dos 5W's.
+     > Based on the practices of the 5W's.
 
-     > Configurável.
+     > Configurable.
 
-## 📁 Para sugestões de funcionalidades entre em contato nos emails abaixo:
+## 📁 For feature suggestions, please contact us at the emails below:
 
-Entre em contato com o assunto: <i>feature-lib-logbit</i>
+Contact the subject: <i>feature-lib-logbit</i>
 
 nyrocha018@gmail.com
 
