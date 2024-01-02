@@ -6,8 +6,6 @@ name: stitch-lib-log-package
 on:
  push:
     branches: [main]
- pull_request:
-    branches: [main]
 
 jobs:
   build:
@@ -24,10 +22,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-      
-    
+
     - name: Test with Maven
       run: mvn test --file pom.xml
 
@@ -35,6 +32,6 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      run: mvn --batch-mode deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
