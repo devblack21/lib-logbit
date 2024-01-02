@@ -81,11 +81,12 @@
 
   <distributionManagement>
     <repository>
-      <id>github</id>
+      <id>ossrh</id>
       <name>LogBit</name>
-      <url>https://maven.pkg.github.com/devblack21/lib-logbit</url>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
+
 
   <build>
     <plugins>
