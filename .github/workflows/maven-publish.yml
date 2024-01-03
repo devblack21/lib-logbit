@@ -44,6 +44,7 @@ jobs:
         sleep 60
         echo "waiting finish!"
         gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
+        export MAVEN_OPTS="--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
         gpg --delete-secret-key $id
         gpg --delete-key $id
