@@ -9,7 +9,9 @@ on:
 
 jobs:
   build:
-
+    env:
+      MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
+      MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -31,9 +33,6 @@ jobs:
         MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
     - name: Publish package
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
-        MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
 
     - name: Test with Maven
       run: mvn test --file pom.xml
