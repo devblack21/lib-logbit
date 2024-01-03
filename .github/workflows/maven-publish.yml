@@ -33,7 +33,7 @@ jobs:
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml
         echo "user: $MAVEN_USERNAME"
       env:
-        MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
+        MAVEN_USERNAME: olá
         MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
     - name: Test with Maven
       run: mvn test --file pom.xml
