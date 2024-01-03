@@ -34,13 +34,18 @@ jobs:
 
     - name: Deploy Artifact
       run: |
-        echo "generate key..."
-        nohup sh gen-key.sh
-        echo "deploy lib..."
+        gpg --batch --gen-key gen-key-script
+        uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
+        gpg --keyserver keyserver.ubuntu.com --send-keys $uid
+        echo "waiting..."
+        sleep 90
+        echo "waiting finish!"
+        gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
-        echo "delete key"
-        nohup sh delete-key.sh
-        echo "finished!"
+        gpg --delete-secret-key $id
+        gpg --delete-key $id
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+      background: true
+      silent: true
