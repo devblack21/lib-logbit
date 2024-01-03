@@ -126,7 +126,6 @@
             <phase>package</phase>
             <goals>
               <goal>jar</goal>
-              <goal>war</goal>
             </goals>
           </execution>
         </executions>
