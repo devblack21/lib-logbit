@@ -1,14 +1,11 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
-
-name: lib-logbit-package
+name: DEPLOY VERSION
 
 on:
  push:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
@@ -35,18 +32,15 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Publish package
+    - name: Deploy Artifact
       run: |
-        gpg --batch --gen-key gen-key-script
-        uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
-        gpg --keyserver keyserver.ubuntu.com --send-keys $uid
-        echo "waiting..."
-        sleep 60
-        echo "waiting finish!"
-        gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
+        echo "generate key..."
+        nohup sh gen-key.sh
+        echo "deploy lib..."
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
-        gpg --delete-secret-key $id
-        gpg --delete-key $id
+        echo "delete key"
+        nohup sh delete-key.sh
+        echo "finished!"
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}

@@ -1,4 +1,4 @@
-# <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo2.png#gh-dark-mode-only" height=15% width=15% /> <img src="https://github.com/devblack21/lib-logbit/blob/feature/refact/logo3.png#gh-light-mode-only" height=15% width=15% />
+# <img src="https://source-of-innovation.s3.sa-east-1.amazonaws.com/images/logbit-icon-dark.png#gh-dark-mode-only" height=15% width=15% /> <img src="https://source-of-innovation.s3.sa-east-1.amazonaws.com/images/logbit-icon-light.png#gh-light-mode-only" height=15% width=15% />
 
 <h3> Hi, I'm Lib LogBit, a logging library in Java. </h3>
 
