@@ -38,6 +38,7 @@ jobs:
 
     - name: Publish package
       run: | 
+        
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
