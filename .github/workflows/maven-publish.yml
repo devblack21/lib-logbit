@@ -31,8 +31,6 @@ jobs:
     - name: Publish package
       run: | 
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-        echo "user: $MAVEN_USERNAME"
-        echo "user: ${{ secrets.SONATYPE_USER }}"
       env:
         MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
         MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
