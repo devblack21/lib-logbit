@@ -11,8 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
-      MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+      MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+      MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
     permissions:
       contents: read
       packages: write
@@ -28,14 +28,17 @@ jobs:
         settings-path: ${{ github.workspace }} # location for the settings.xml file
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
-    - name: Publish package
-      run: | 
-        mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
-        MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+
     - name: Test with Maven
       run: mvn test --file pom.xml
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+    - name: Publish package
+      run: | 
+        mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
+      env:
+        MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
+
