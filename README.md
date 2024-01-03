@@ -1,4 +1,4 @@
-# <img src="https://source-of-innovation.s3.sa-east-1.amazonaws.com/images/logbit-icon-dark.png#gh-dark-mode-only" height=15% width=15% /> <img src="https://source-of-innovation.s3.sa-east-1.amazonaws.com/images/logbit-icon-light.png#gh-light-mode-only" height=15% width=15% />
+# <picture><source media="(prefers-color-scheme: dark)" srcset="https://source-of-innovation.s3.sa-east-1.amazonaws.com/images/logbit-icon-dark.png"><img height=15% width=15%  src="https://source-of-innovation.s3.sa-east-1.amazonaws.com/images/logbit-icon-light.png"></picture>
 
 <h3> Hi, I'm Lib LogBit, a logging library in Java. </h3>
 
