@@ -67,11 +67,6 @@
       <version>${slf4j.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${fasterjackason.version}</version>
@@ -176,6 +171,10 @@
         <configuration>
           <keyname>${gpg.keyname}</keyname>
           <passphraseServerId>${gpg.keyname}</passphraseServerId>
+          <gpgArguments>
+            <arg>--pinentry-mode</arg>
+            <arg>loopback</arg>
+          </gpgArguments>
         </configuration>
       </plugin>
       <plugin>
@@ -186,6 +185,14 @@
           <pushChanges>false</pushChanges>
           <mavenExecutorId>forked-path</mavenExecutorId>
           <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>9</source>
+          <target>9</target>
         </configuration>
       </plugin>
     </plugins>
