@@ -1,0 +1,10 @@
+%echo Generating GPG key
+Key-Type: 1
+Key-Length: 2048
+Subkey-Type: 1
+Subkey-Length: 2048
+Name-Real: Marcos Vinicius André Rocha
+Name-Email: nyrocha018@gmail.com
+%no-protection
+%commit
+%echo done

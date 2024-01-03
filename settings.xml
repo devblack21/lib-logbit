@@ -26,10 +26,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <gpg.executable>gpg</gpg.executable>
-                <gpg.passphrase>${GPG}</gpg.passphrase>
-            </properties>
         </profile>
     </profiles>
 
