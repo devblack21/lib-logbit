@@ -41,7 +41,8 @@ jobs:
         uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
         gpg --keyserver keyserver.ubuntu.com --send-keys $uid
         echo "waiting..."
-        sleep 20
+        sleep 60
+        echo "waiting finish!"
         gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
         gpg --delete-secret-key $id
