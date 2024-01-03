@@ -9,10 +9,10 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     env:
       MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
       MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -26,11 +26,8 @@ jobs:
         distribution: 'temurin'
         server-id: central # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-        server-username: ${{ secrets.SONATYPE_USER }}
-        server-password: ${{ secrets.SONATYPE_PASSWORD }}
-      env:
-        MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
-        MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
     - name: Publish package
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
 
