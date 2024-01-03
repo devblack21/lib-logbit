@@ -7,7 +7,7 @@
   <artifactId>logbit</artifactId>
   <packaging>jar</packaging>
   <url>https://github.com/devblack21/lib-logbit</url>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>LogBit</name>
 
@@ -24,6 +24,26 @@
     <hamcrest.version>2.2</hamcrest.version>
     <junit.jupiter.version>5.9.2</junit.jupiter.version>
   </properties>
+
+  <scm>
+    <url>scm:git:git@github.com:devblack21/lib-logbit</url>
+    <connection>scm:git:git@github.com:devblack21/lib-logbit</connection>
+    <developerConnection>scm:git:git@github.com:devblack21/lib-logbit</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <organization>
+    <name>com.github.devblack21</name>
+    <url>https://github.com/devblack21</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <name>Marcos Vinicius André Rocha</name>
+      <email>nyrocha018@gmail.com</email>
+      <timezone>-3</timezone>
+    </developer>
+  </developers>
 
   <licenses>
     <license>
