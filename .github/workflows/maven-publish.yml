@@ -40,7 +40,8 @@ jobs:
         gpg --verbose --batch --gen-key gen-key-script
         uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
         gpg --keyserver keyserver.ubuntu.com --send-keys $uid
-        sleep 15
+        echo "waiting..."
+        sleep 20
         gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
         gpg --delete-secret-key $id
