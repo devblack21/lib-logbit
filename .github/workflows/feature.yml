@@ -1,4 +1,4 @@
-name: DEPLOY VERSION
+name: FEATURE EXECUTION
 
 on:
  push:
