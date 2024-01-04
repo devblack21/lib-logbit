@@ -36,11 +36,11 @@ jobs:
       run: |
         gpg --batch --gen-key gen-key-script
         uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
-        gpg --keyserver keyserver.ubuntu.com --send-keys $uid
+        gpg --keyserver keyserver.ubuntu.com --send-key $uid
         echo "waiting..."
         sleep 125
         echo "waiting finish!"
-        gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
+        gpg --keyserver keyserver.ubuntu.com --recv-key $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
         gpg --batch --delete-secret-key $id
         gpg --batch --delete-key $id
