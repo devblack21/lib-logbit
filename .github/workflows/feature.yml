@@ -3,7 +3,7 @@ name: DEPLOY VERSION
 on:
  push:
     branches:
-      - "feature**"
+      - 'feature/**'
 
 jobs:
   build:
