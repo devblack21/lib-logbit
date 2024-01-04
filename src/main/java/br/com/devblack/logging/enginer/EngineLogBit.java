@@ -1,14 +1,14 @@
-package br.com.devblack.logging.bitlogger;
+package br.com.devblack.logging.enginer;
 
-import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.configuration.LogBitConfiguration;
 import br.com.devblack.logging.record.LogBitRecord;
 
 import java.util.logging.Level;
 
-public class EngineBitLogger extends AbstractEngineBitLogger {
+public class EngineLogBit extends AbstractEngineLogBit {
 
-	public EngineBitLogger(final Configuration configuration) {
-        super(configuration);
+	public EngineLogBit(final LogBitConfiguration logBitConfiguration) {
+        super(logBitConfiguration);
 	}
 
 	public LogBitRecord info(final String logCode, final String msg, final Object payload) {

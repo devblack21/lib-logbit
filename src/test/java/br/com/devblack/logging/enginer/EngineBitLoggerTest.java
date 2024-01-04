@@ -1,6 +1,6 @@
-package br.com.devblack.logging.bitlogger;
+package br.com.devblack.logging.enginer;
 
-import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.configuration.LogBitConfiguration;
 import br.com.devblack.logging.record.LogBitRecord;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class EngineBitLoggerTest {
 	public void shouldExceptionNotConfigurationLog() {
 		final RuntimeException runtimeException = new RuntimeException();
 		final Exception exception = assertThrows(RuntimeException.class, () -> {
-			final EngineBitLogger concreteLogger = new EngineBitLogger(null);
+			final EngineLogBit concreteLogger = new EngineLogBit(null);
 			concreteLogger.error("","", null, runtimeException);
 		});
 		assertThat(exception, notNullValue());
@@ -27,12 +27,12 @@ public class EngineBitLoggerTest {
 	@Test
 	public void shouldConfigureLog() {
 	
-		final Configuration configuration = new Configuration("testing", "stitch", false);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration("testing", "stitch", false);
 
-		assertThat(configuration.getApplicationName(), is("testing"));
-		assertThat(configuration.getOrganizationName(), is("stitch"));
-		assertThat(configuration.isThrowable(), is(Boolean.FALSE));
-		assertThat(configuration.getHostAddress(), notNullValue());
+		assertThat(logBitConfiguration.getApplicationName(), is("testing"));
+		assertThat(logBitConfiguration.getOrganizationName(), is("stitch"));
+		assertThat(logBitConfiguration.isThrowable(), is(Boolean.FALSE));
+		assertThat(logBitConfiguration.getHostAddress(), notNullValue());
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogInfo";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 
 
@@ -70,7 +70,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoWithPayload";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
@@ -99,7 +99,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoStartWithPayload";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
@@ -129,7 +129,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoStart";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			
@@ -158,7 +158,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoFinish";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			final LogBitRecord logBitRecord = concreteLogger.logInfoFinish("TESTING", nameMethod, null);
@@ -188,7 +188,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogInfoFinishWithPayload";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
 			final LogBitRecord logBitRecord = concreteLogger.logInfoFinish("TESTING", nameMethod, Map.of("key", "value"));
@@ -217,16 +217,16 @@ public class EngineBitLoggerTest {
 	@Test
 	public void shouldConfigureDisableCorrelationAndTransactinLog() {
 		
-		final Configuration configuration = new Configuration("shouldConfigureDisableCorrelationAndTransactinLog", "stitch", false);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration("shouldConfigureDisableCorrelationAndTransactinLog", "stitch", false);
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
+		final EngineLogBit concreteLogger = new EngineLogBit(logBitConfiguration);
 		
 		assertThatCode(() -> concreteLogger.info("TESTING", "shouldConfigureDisableCorrelationAndTransactinLog", Map.of("key", "value"))).doesNotThrowAnyException();
 
-		assertThat(configuration.getApplicationName(), is("shouldConfigureDisableCorrelationAndTransactinLog"));
-		assertThat(configuration.getOrganizationName(), is("stitch"));
-		assertThat(configuration.isThrowable(), is(Boolean.FALSE));
-		assertThat(configuration.getHostAddress(), notNullValue());
+		assertThat(logBitConfiguration.getApplicationName(), is("shouldConfigureDisableCorrelationAndTransactinLog"));
+		assertThat(logBitConfiguration.getOrganizationName(), is("stitch"));
+		assertThat(logBitConfiguration.isThrowable(), is(Boolean.FALSE));
+		assertThat(logBitConfiguration.getHostAddress(), notNullValue());
 	}
 	
 	@Test
@@ -234,7 +234,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogWarning";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 
 			final LogBitRecord logBitRecord = concreteLogger.warning("TESTING", nameMethod, null);
@@ -263,7 +263,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningWithPayload";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.warning("TESTING", nameMethod, Map.of("key", "value"));
 			
@@ -291,7 +291,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningStartWithPayload";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.logWarningStart("TESTING", nameMethod, Map.of("key", "value"));
 			
@@ -320,7 +320,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningStart";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.logWarningStart("TESTING", nameMethod, null);
 			
@@ -349,7 +349,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningFinish";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			final LogBitRecord logBitRecord = concreteLogger.logWarningFinish("TESTING", nameMethod, null);
@@ -379,7 +379,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogWarningFinishWithPayload";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
 			final LogBitRecord logBitRecord = concreteLogger.logWarningFinish("TESTING", nameMethod, Map.of("key", "value"));
@@ -409,7 +409,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogError";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.error("TESTING", nameMethod, null, new RuntimeException("erro"));
 			
@@ -435,7 +435,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogErrorWithPayload";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.error("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
 			
@@ -462,7 +462,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogDebug";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.debug("TESTING", nameMethod, null, new RuntimeException("erro"));
 			
@@ -489,7 +489,7 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldLogDebugWithPayload";
 		
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.debug("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
 			
@@ -516,7 +516,7 @@ public class EngineBitLoggerTest {
 
 		final String nameMethod = "shouldLogWhenInsertCorrelationAndTransaction";
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
+		final EngineLogBit concreteLogger = new EngineLogBit(new LogBitConfiguration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
 
@@ -569,9 +569,9 @@ public class EngineBitLoggerTest {
 		
 		final String nameMethod = "shouldConfigureInsertHostAddress";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "168.192.152.1", false);
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
+		final EngineLogBit concreteLogger = new EngineLogBit(logBitConfiguration);
 
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);
@@ -599,12 +599,12 @@ public class EngineBitLoggerTest {
 
 		final String nameMethod = "shouldConfigureRandomCorrelationIdAndTransactionId";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "168.192.152.1", false);
 
-		configuration.enableRandomCorrelation();
-		configuration.enableRandomTransaction();
+		logBitConfiguration.enableRandomCorrelation();
+		logBitConfiguration.enableRandomTransaction();
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
+		final EngineLogBit concreteLogger = new EngineLogBit(logBitConfiguration);
 
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);
@@ -632,12 +632,12 @@ public class EngineBitLoggerTest {
 
 		final String nameMethod = "shouldConfigureRandomCorrelationIdAndTransactionId";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", "168.192.152.1", false);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "168.192.152.1", false);
 
-		configuration.disableRandomCorrelation();
-		configuration.disableRandomTransaction();
+		logBitConfiguration.disableRandomCorrelation();
+		logBitConfiguration.disableRandomTransaction();
 
-		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
+		final EngineLogBit concreteLogger = new EngineLogBit(logBitConfiguration);
 
 		assertThatCode(() -> {
 			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);

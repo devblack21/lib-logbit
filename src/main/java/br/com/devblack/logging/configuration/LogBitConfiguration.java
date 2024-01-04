@@ -2,7 +2,7 @@ package br.com.devblack.logging.configuration;
 
 import java.net.InetAddress;
 
-public class Configuration {
+public class LogBitConfiguration {
 
 	private static final String EMPTY = "";
 	private final String applicationName;
@@ -12,10 +12,10 @@ public class Configuration {
 	private boolean isCorrelationRandom = false;
 	private boolean isTransactionRandom = false;
 
-	public Configuration(final String applicationName,
-						 final String organizationName,
-						 final String hostAddress,
-						 final boolean isThrowable) {
+	public LogBitConfiguration(final String applicationName,
+							   final String organizationName,
+							   final String hostAddress,
+							   final boolean isThrowable) {
 
 		this.applicationName = applicationName;
 		this.organizationName = organizationName;
@@ -23,7 +23,7 @@ public class Configuration {
 		this.isThrowable = isThrowable;
 	}
 	
-	public Configuration(final String applicationName, final String organizationName, final boolean isThrowable) {
+	public LogBitConfiguration(final String applicationName, final String organizationName, final boolean isThrowable) {
 		this.applicationName = applicationName;
 		this.organizationName = organizationName;
 		this.isThrowable = isThrowable;

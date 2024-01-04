@@ -1,12 +1,12 @@
 package br.com.devblack.logging.facade;
 
-import br.com.devblack.logging.bitlogger.AbstractEngineBitLogger;
+import br.com.devblack.logging.enginer.AbstractEngineLogBit;
 
 public class LogBit {
 
-	public static AbstractEngineBitLogger logger;
+	public static AbstractEngineLogBit logger;
 
-	public static void configure(final AbstractEngineBitLogger engineBitLogger) {
+	public static void configure(final AbstractEngineLogBit engineBitLogger) {
 		logger = engineBitLogger;
 	}
 

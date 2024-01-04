@@ -1,6 +1,6 @@
-package br.com.devblack.logging.bitlogger;
+package br.com.devblack.logging.enginer;
 
-import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.configuration.LogBitConfiguration;
 import br.com.devblack.logging.record.LogBitRecord;
 
 import java.time.Instant;
@@ -14,10 +14,10 @@ import java.util.logging.LogRecord;
 
 import static java.util.logging.Logger.getLogger;
 
-public abstract class AbstractEngineBitLogger {
+public abstract class AbstractEngineLogBit {
 
     private static final Map<Level, String> mapLevels = new HashMap<>();
-    private static Configuration configuration = null;
+    private static LogBitConfiguration logBitConfiguration = null;
     private static final LogContext logContext = new LogContext();
 
     static {
@@ -27,13 +27,15 @@ public abstract class AbstractEngineBitLogger {
         mapLevels.put(Level.WARNING, "WARNING");
     }
 
-    AbstractEngineBitLogger(final Configuration value) {
+    AbstractEngineLogBit(final LogBitConfiguration value) {
         if (Objects.isNull(value)){
-            throw new IllegalArgumentException("Configuration value must not be null");
+            throw new IllegalArgumentException("LogBitConfiguration value must not be null");
         }
-        configuration = value;
+        logBitConfiguration = value;
         logContext.clear();
-        logContext.setConfigurationContext(configuration);
+        logContext.setApplicationName(logBitConfiguration.getApplicationName());
+        logContext.setOrganizationName(logBitConfiguration.getOrganizationName());
+        logContext.setHostAddress(logBitConfiguration.getHostAddress());
     }
     protected static LogBitRecord log(final Level level,
                                       final String logCode,
@@ -50,7 +52,7 @@ public abstract class AbstractEngineBitLogger {
         logRecord.setInstant(Instant.now());
         logRecord.setMessage(logBitRecord.json());
 
-        if (configuration.isThrowable()) {
+        if (logBitConfiguration.isThrowable()) {
             logRecord.setThrown(throwable);
         }
 
@@ -76,7 +78,7 @@ public abstract class AbstractEngineBitLogger {
                 .setThreadId(String.valueOf(Thread.currentThread().getId()))
                 .setPayload(payload)
                 .setThrowable(throwable)
-                .setHost(configuration.getHostAddress())
+                .setHost(logBitConfiguration.getHostAddress())
                 .setTimeExecution(logContext.getExecutionDuration())
                 .setCurrent(ZonedDateTime.now())
                 .setStart(logContext.isFinish() ? logContext.getStart() : null)
@@ -105,7 +107,7 @@ public abstract class AbstractEngineBitLogger {
 
         final String correlationId = logContext.getCorrelationId();
 
-        if (Objects.isNull(correlationId) && configuration.isCorrelationRandom()) {
+        if (Objects.isNull(correlationId) && logBitConfiguration.isCorrelationRandom()) {
             return UUID.randomUUID().toString();
         }
 
@@ -116,7 +118,7 @@ public abstract class AbstractEngineBitLogger {
 
         final String transactionId = logContext.getTransactionId();
 
-        if (Objects.isNull(transactionId) && configuration.isTransactionRandom()) {
+        if (Objects.isNull(transactionId) && logBitConfiguration.isTransactionRandom()) {
             return UUID.randomUUID().toString();
         }
 

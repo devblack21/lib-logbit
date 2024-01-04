@@ -1,6 +1,6 @@
-package br.com.devblack.logging.bitlogger;
+package br.com.devblack.logging.enginer;
 
-import br.com.devblack.logging.configuration.Configuration;
+import br.com.devblack.logging.configuration.LogBitConfiguration;
 import org.slf4j.MDC;
 
 import java.time.ZonedDateTime;
@@ -86,9 +86,16 @@ public class LogContext {
         transactionId = value;
     }
 
-    public void setConfigurationContext(final Configuration value) {
-        MDC.put(APPLICATION_NAME, value.getApplicationName());
-        MDC.put(ORGANIZATION_NAME, value.getOrganizationName());
-        MDC.put(HOST_ADDRESS, value.getHostAddress());
+    public void setApplicationName(final String value) {
+        MDC.put(APPLICATION_NAME, value);
     }
+
+    public void setOrganizationName(final String value) {
+        MDC.put(ORGANIZATION_NAME, value);
+    }
+
+    public void setHostAddress(final String value) {
+        MDC.put(HOST_ADDRESS, value);
+    }
+
 }
