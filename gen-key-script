@@ -5,6 +5,7 @@ Subkey-Type: 1
 Subkey-Length: 2048
 Name-Real: Marcos Vinicius André Rocha
 Name-Email: nyrocha018@gmail.com
+Expire-Date: seconds=900
 %no-protection
 %commit
 %echo done
