@@ -1,7 +1,7 @@
 package br.com.devblack.logging.bitlogger;
 
 import br.com.devblack.logging.configuration.Configuration;
-import br.com.devblack.logging.record.LogObject;
+import br.com.devblack.logging.record.LogBitRecord;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -35,20 +35,20 @@ public abstract class AbstractEngineBitLogger {
         logContext.clear();
         logContext.setConfigurationContext(configuration);
     }
-    protected static LogObject log(final Level level,
-                                 final String logCode,
-                                 final String message,
-                                 final Object payload,
-                                 final Throwable throwable) {
+    protected static LogBitRecord log(final Level level,
+                                      final String logCode,
+                                      final String message,
+                                      final Object payload,
+                                      final Throwable throwable) {
 
         final LogRecord logRecord = new LogRecord(level, logCode);
 
-        final LogObject logObject = createObject(level, logCode, message, payload, throwable);
+        final LogBitRecord logBitRecord = createObject(level, logCode, message, payload, throwable);
 
         logRecord.setLoggerName(logCode);
         logRecord.setThreadID(Integer.parseInt(String.valueOf(Thread.currentThread().getId())));
         logRecord.setInstant(Instant.now());
-        logRecord.setMessage(logObject.json());
+        logRecord.setMessage(logBitRecord.json());
 
         if (configuration.isThrowable()) {
             logRecord.setThrown(throwable);
@@ -58,16 +58,16 @@ public abstract class AbstractEngineBitLogger {
 
         logContext.clearDurationTime();
 
-        return logObject;
+        return logBitRecord;
     }
 
 
-    private static LogObject createObject(final java.util.logging.Level level,
-                                          final String logCode,
-                                          final String message,
-                                          final Object payload,
-                                          final Throwable throwable) {
-        return LogObject.init()
+    private static LogBitRecord createObject(final java.util.logging.Level level,
+                                             final String logCode,
+                                             final String message,
+                                             final Object payload,
+                                             final Throwable throwable) {
+        return LogBitRecord.init()
                 .setLogCode(logCode)
                 .setCorrelationId(getCorrelationId())
                 .setTransationId(getTransactionId())
@@ -123,28 +123,28 @@ public abstract class AbstractEngineBitLogger {
         return transactionId;
     }
 
-    public abstract LogObject info(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord info(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject warning(final String logCode, final String msg, final Object payload, final Throwable throwable);
+    public abstract LogBitRecord warning(final String logCode, final String msg, final Object payload, final Throwable throwable);
 
-    public abstract LogObject warning(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord warning(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject error(final String logCode, final String msg, final Object payload, final Throwable throwable);
+    public abstract LogBitRecord error(final String logCode, final String msg, final Object payload, final Throwable throwable);
 
-    public abstract LogObject debug(final String logCode, final String msg, final Object payload, final Throwable throwable);
+    public abstract LogBitRecord debug(final String logCode, final String msg, final Object payload, final Throwable throwable);
 
-    public abstract LogObject debug(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord debug(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject logInfoStart(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord logInfoStart(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject logWarningStart(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord logWarningStart(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject logWarningStart(final String logCode, final String msg, final Object payload, final Throwable throwable);
+    public abstract LogBitRecord logWarningStart(final String logCode, final String msg, final Object payload, final Throwable throwable);
 
-    public abstract LogObject logInfoFinish(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord logInfoFinish(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject logWarningFinish(final String logCode, final String msg, final Object payload);
+    public abstract LogBitRecord logWarningFinish(final String logCode, final String msg, final Object payload);
 
-    public abstract LogObject logWarningFinish(final String logCode, final String msg, final Object payload, final Throwable throwable);
+    public abstract LogBitRecord logWarningFinish(final String logCode, final String msg, final Object payload, final Throwable throwable);
 
 }

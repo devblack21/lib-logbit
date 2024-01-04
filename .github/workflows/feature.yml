@@ -1,9 +1,9 @@
-name: DEPLOY VERSION
+name: FEATURE EXECUTION
 
 on:
  push:
     branches:
-      - "feature**"
+      - 'feature/**'
 
 jobs:
   build:
@@ -25,4 +25,4 @@ jobs:
       run: mvn test --file pom.xml
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn clean compile --file pom.xml

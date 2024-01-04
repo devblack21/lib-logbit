@@ -1,8 +1,7 @@
 package br.com.devblack.logging.bitlogger;
 
 import br.com.devblack.logging.configuration.Configuration;
-import br.com.devblack.logging.bitlogger.EngineBitLogger;
-import br.com.devblack.logging.record.LogObject;
+import br.com.devblack.logging.record.LogBitRecord;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -45,24 +44,24 @@ public class EngineBitLoggerTest {
 		assertThatCode(() -> {
 
 
-			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);
 
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\"shouldLogInfo\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\"shouldLogInfo\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -74,24 +73,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -103,24 +102,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord = concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -132,24 +131,24 @@ public class EngineBitLoggerTest {
 
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.logInfoStart("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.logInfoStart("TESTING", nameMethod, null);
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -162,24 +161,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, null);
-			final LogObject logObject = concreteLogger.logInfoFinish("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.logInfoFinish("TESTING", nameMethod, null);
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), notNullValue());
-			assertThat(logObject.getStart(), notNullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), notNullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), notNullValue());
+			assertThat(logBitRecord.getStart(), notNullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), notNullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"start\":\""+ logBitRecord.getStart()+"\",\"finish\":\""+ logBitRecord.getFinish()+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"timeExecution\":\""+ logBitRecord.getTimeExecution()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -192,24 +191,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
-			final LogObject logObject = concreteLogger.logInfoFinish("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord = concreteLogger.logInfoFinish("TESTING", nameMethod, Map.of("key", "value"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), notNullValue());
-			assertThat(logObject.getStart(), notNullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), notNullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), notNullValue());
+			assertThat(logBitRecord.getStart(), notNullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), notNullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"start\":\""+ logBitRecord.getStart()+"\",\"finish\":\""+ logBitRecord.getFinish()+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"timeExecution\":\""+ logBitRecord.getTimeExecution()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -238,24 +237,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 
-			final LogObject logObject = concreteLogger.warning("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.warning("TESTING", nameMethod, null);
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("WARNING"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("WARNING"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -266,24 +265,24 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.warning("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord = concreteLogger.warning("TESTING", nameMethod, Map.of("key", "value"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("WARNING"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("WARNING"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 		}).doesNotThrowAnyException();
 	}
 	
@@ -294,24 +293,24 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.logWarningStart("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord = concreteLogger.logWarningStart("TESTING", nameMethod, Map.of("key", "value"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("WARNING"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("WARNING"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -323,24 +322,24 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.logWarningStart("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.logWarningStart("TESTING", nameMethod, null);
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("WARNING"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("WARNING"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"WARNING\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -353,24 +352,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, null);
-			final LogObject logObject = concreteLogger.logWarningFinish("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.logWarningFinish("TESTING", nameMethod, null);
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("WARNING"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), notNullValue());
-			assertThat(logObject.getStart(), notNullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), notNullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("WARNING"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), notNullValue());
+			assertThat(logBitRecord.getStart(), notNullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), notNullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"start\":\""+ logBitRecord.getStart()+"\",\"finish\":\""+ logBitRecord.getFinish()+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"timeExecution\":\""+ logBitRecord.getTimeExecution()+"\",\"severity\":\"WARNING\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -383,24 +382,24 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
 			concreteLogger.logInfoStart("TESTING", nameMethod, Map.of("key", "value"));
-			final LogObject logObject = concreteLogger.logWarningFinish("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord = concreteLogger.logWarningFinish("TESTING", nameMethod, Map.of("key", "value"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("WARNING"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), notNullValue());
-			assertThat(logObject.getStart(), notNullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), notNullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"start\":\""+logObject.getStart()+"\",\"finish\":\""+logObject.getFinish()+"\",\"current\":\""+logObject.getCurrent()+"\",\"timeExecution\":\""+logObject.getTimeExecution()+"\",\"severity\":\"WARNING\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("WARNING"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), notNullValue());
+			assertThat(logBitRecord.getStart(), notNullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), notNullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"start\":\""+ logBitRecord.getStart()+"\",\"finish\":\""+ logBitRecord.getFinish()+"\",\"current\":\""+ logBitRecord.getCurrent()+"\",\"timeExecution\":\""+ logBitRecord.getTimeExecution()+"\",\"severity\":\"WARNING\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -412,21 +411,21 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.error("TESTING", nameMethod, null, new RuntimeException("erro"));
+			final LogBitRecord logBitRecord = concreteLogger.error("TESTING", nameMethod, null, new RuntimeException("erro"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("ERROR"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("ERROR"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
 
 		}).doesNotThrowAnyException();
 	}
@@ -438,22 +437,22 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.error("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
+			final LogBitRecord logBitRecord = concreteLogger.error("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("ERROR"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), notNullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("ERROR"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), notNullValue());
 			
 		}).doesNotThrowAnyException();
 	}
@@ -465,22 +464,22 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.debug("TESTING", nameMethod, null, new RuntimeException("erro"));
+			final LogBitRecord logBitRecord = concreteLogger.debug("TESTING", nameMethod, null, new RuntimeException("erro"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("DEBUG"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), notNullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("DEBUG"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), notNullValue());
 			
 		}).doesNotThrowAnyException();
 	}
@@ -492,22 +491,22 @@ public class EngineBitLoggerTest {
 		
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.debug("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
+			final LogBitRecord logBitRecord = concreteLogger.debug("TESTING", nameMethod, Map.of("key", "value"), new RuntimeException("error"));
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("DEBUG"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), notNullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("DEBUG"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), notNullValue());
 			
 		}).doesNotThrowAnyException();
 	}
@@ -519,47 +518,47 @@ public class EngineBitLoggerTest {
 
 		final EngineBitLogger concreteLogger = new EngineBitLogger(new Configuration(nameMethod, "testing", false));
 		assertThatCode(() -> {
-			LogObject logObject = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
+			LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
 
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), notNullValue());
-			assertThat(logObject.getPayload(), notNullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
-			final String json = "{\"threadId\":\""+logObject.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject.getHost()+"\"}";
-			assertThat(logObject.json(), is(json));
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), notNullValue());
+			assertThat(logBitRecord.getPayload(), notNullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
+			final String json = "{\"threadId\":\""+ logBitRecord.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+ logBitRecord.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord.getHost()+"\"}";
+			assertThat(logBitRecord.json(), is(json));
 
 			concreteLogger.setCorrelationId(UUID.randomUUID().toString());
 			concreteLogger.setTransactionId(UUID.randomUUID().toString());
 
-			final LogObject logObject2 = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
+			final LogBitRecord logBitRecord2 = concreteLogger.info("TESTING", nameMethod, Map.of("key", "value"));
 
-			assertThat(logObject2, notNullValue());
-			assertThat(logObject2.getMessage(), is(nameMethod));
-			assertThat(logObject2.getLogCode(), is("TESTING"));
-			assertThat(logObject2.getSeverity(), is("INFO"));
-			assertThat(logObject2.getThreadId(), notNullValue());
-			assertThat(logObject2.getHost(), notNullValue());
-			assertThat(logObject2.getPayload(), notNullValue());
-			assertThat(logObject2.getFinish(), nullValue());
-			assertThat(logObject2.getStart(), nullValue());
-			assertThat(logObject2.getCurrent(), notNullValue());
-			assertThat(logObject2.getCorrelationId(), notNullValue());
-			assertThat(logObject2.getTransactionId(), notNullValue());
-			assertThat(logObject2.getTimeExecution(), nullValue());
-			assertThat(logObject2.getThrowable(), nullValue());
+			assertThat(logBitRecord2, notNullValue());
+			assertThat(logBitRecord2.getMessage(), is(nameMethod));
+			assertThat(logBitRecord2.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord2.getSeverity(), is("INFO"));
+			assertThat(logBitRecord2.getThreadId(), notNullValue());
+			assertThat(logBitRecord2.getHost(), notNullValue());
+			assertThat(logBitRecord2.getPayload(), notNullValue());
+			assertThat(logBitRecord2.getFinish(), nullValue());
+			assertThat(logBitRecord2.getStart(), nullValue());
+			assertThat(logBitRecord2.getCurrent(), notNullValue());
+			assertThat(logBitRecord2.getCorrelationId(), notNullValue());
+			assertThat(logBitRecord2.getTransactionId(), notNullValue());
+			assertThat(logBitRecord2.getTimeExecution(), nullValue());
+			assertThat(logBitRecord2.getThrowable(), nullValue());
 
-			final String jsonInserted = "{\"correlationId\":\""+logObject2.getCorrelationId()+"\",\"transactionId\":\""+logObject2.getTransactionId()+"\",\"threadId\":\""+logObject2.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+logObject2.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+logObject2.getHost()+"\"}";
-			assertThat(logObject2.json(), is(jsonInserted));
+			final String jsonInserted = "{\"correlationId\":\""+ logBitRecord2.getCorrelationId()+"\",\"transactionId\":\""+ logBitRecord2.getTransactionId()+"\",\"threadId\":\""+ logBitRecord2.getThreadId()+"\",\"logCode\":\"TESTING\",\"message\":\""+nameMethod+"\",\"payload\":{\"key\":\"value\"},\"current\":\""+ logBitRecord2.getCurrent()+"\",\"severity\":\"INFO\",\"host\":\""+ logBitRecord2.getHost()+"\"}";
+			assertThat(logBitRecord2.json(), is(jsonInserted));
 			
 		}).doesNotThrowAnyException();
 	}
@@ -575,22 +574,22 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);
 			
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), is("168.192.152.1"));
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), is("168.192.152.1"));
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
 			
 		}).doesNotThrowAnyException();
 	}
@@ -608,22 +607,22 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);
 
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), is("168.192.152.1"));
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), notNullValue());
-			assertThat(logObject.getTransactionId(), notNullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), is("168.192.152.1"));
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), notNullValue());
+			assertThat(logBitRecord.getTransactionId(), notNullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
 
 		}).doesNotThrowAnyException();
 	}
@@ -641,22 +640,22 @@ public class EngineBitLoggerTest {
 		final EngineBitLogger concreteLogger = new EngineBitLogger(configuration);
 
 		assertThatCode(() -> {
-			final LogObject logObject = concreteLogger.info("TESTING", nameMethod, null);
+			final LogBitRecord logBitRecord = concreteLogger.info("TESTING", nameMethod, null);
 
-			assertThat(logObject, notNullValue());
-			assertThat(logObject.getMessage(), is(nameMethod));
-			assertThat(logObject.getLogCode(), is("TESTING"));
-			assertThat(logObject.getSeverity(), is("INFO"));
-			assertThat(logObject.getThreadId(), notNullValue());
-			assertThat(logObject.getHost(), is("168.192.152.1"));
-			assertThat(logObject.getPayload(), nullValue());
-			assertThat(logObject.getFinish(), nullValue());
-			assertThat(logObject.getStart(), nullValue());
-			assertThat(logObject.getCurrent(), notNullValue());
-			assertThat(logObject.getCorrelationId(), nullValue());
-			assertThat(logObject.getTransactionId(), nullValue());
-			assertThat(logObject.getTimeExecution(), nullValue());
-			assertThat(logObject.getThrowable(), nullValue());
+			assertThat(logBitRecord, notNullValue());
+			assertThat(logBitRecord.getMessage(), is(nameMethod));
+			assertThat(logBitRecord.getLogCode(), is("TESTING"));
+			assertThat(logBitRecord.getSeverity(), is("INFO"));
+			assertThat(logBitRecord.getThreadId(), notNullValue());
+			assertThat(logBitRecord.getHost(), is("168.192.152.1"));
+			assertThat(logBitRecord.getPayload(), nullValue());
+			assertThat(logBitRecord.getFinish(), nullValue());
+			assertThat(logBitRecord.getStart(), nullValue());
+			assertThat(logBitRecord.getCurrent(), notNullValue());
+			assertThat(logBitRecord.getCorrelationId(), nullValue());
+			assertThat(logBitRecord.getTransactionId(), nullValue());
+			assertThat(logBitRecord.getTimeExecution(), nullValue());
+			assertThat(logBitRecord.getThrowable(), nullValue());
 
 		}).doesNotThrowAnyException();
 	}

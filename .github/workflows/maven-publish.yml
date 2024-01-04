@@ -30,7 +30,7 @@ jobs:
       run: mvn test --file pom.xml
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn clean compile --file pom.xml
 
     - name: Deploy Artifact
       run: |
@@ -38,7 +38,7 @@ jobs:
         uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
         gpg --keyserver keyserver.ubuntu.com --send-keys $uid
         echo "waiting..."
-        sleep 90
+        sleep 100
         echo "waiting finish!"
         gpg --keyserver keyserver.ubuntu.com --recv-keys $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
