@@ -3,16 +3,14 @@ package br.com.devblack.logging.record;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-@JsonSerializableSchema
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LogObject implements Serializable {
+public class LogBitRecord implements Serializable {
 	
 	private String correlationId = null;
 	private String transactionId = null;
@@ -28,7 +26,7 @@ public class LogObject implements Serializable {
 	private String severity = null;
 	private String host = null;
 	
-	private LogObject() {}
+	private LogBitRecord() {}
 	
 	public String getCorrelationId() {
 		return correlationId;
@@ -86,76 +84,76 @@ public class LogObject implements Serializable {
 		return TimeUnit.MILLISECONDS.convert(timeExecution, TimeUnit.NANOSECONDS) + "ms";
 	}
 	
-	public static LogObject init() {
-		return new LogObject();
+	public static LogBitRecord init() {
+		return new LogBitRecord();
 	}
 	
-	public LogObject setCorrelationId(final String correlationId) {
+	public LogBitRecord setCorrelationId(final String correlationId) {
 		this.correlationId = correlationId;
 		return this;
 	}
 	
-	public LogObject setTransationId(final String transactionId) {
+	public LogBitRecord setTransationId(final String transactionId) {
 		this.transactionId = transactionId;
 		return this;
 	}
 	
-	public LogObject setHost(final String host) {
+	public LogBitRecord setHost(final String host) {
 		this.host = host;
 		return this;
 	}
 	
-	public LogObject setThreadId(final String threadId) {
+	public LogBitRecord setThreadId(final String threadId) {
 		this.threadId = threadId;
 		return this;
 	}
 	
-	public LogObject setLogCode(final String logCode) {
+	public LogBitRecord setLogCode(final String logCode) {
 		this.logCode = logCode;
 		return this;
 	}
 	
-	public LogObject setMessage(final String message) {
+	public LogBitRecord setMessage(final String message) {
 		this.message = message;
 		return this;
 	}
 	
-	public LogObject setPayload(final Object payload) {
+	public LogBitRecord setPayload(final Object payload) {
 		this.payload = payload;
 		return this;
 	}
 	
-	public LogObject setCurrent(final ZonedDateTime current) {
+	public LogBitRecord setCurrent(final ZonedDateTime current) {
 		this.current = current;
 		return this;
 	}
 	
-	public LogObject setTimeExecution(final long timeExecution) {
+	public LogBitRecord setTimeExecution(final long timeExecution) {
 		this.timeExecution = timeExecution;
 		return this;
 	}
 	
-	public LogObject setThrowable(final Throwable throwable) {
+	public LogBitRecord setThrowable(final Throwable throwable) {
 		this.throwable = throwable;
 		return this;
 	}
 	
-	public LogObject setStart(final ZonedDateTime start) {
+	public LogBitRecord setStart(final ZonedDateTime start) {
 		this.start = start;
 		return this;
 	}
 	
-	public LogObject setFinish(final ZonedDateTime finish) {
+	public LogBitRecord setFinish(final ZonedDateTime finish) {
 		this.finish = finish;
 		return this;
 	}
 	
-	public LogObject setSeverity(final String severity) {
+	public LogBitRecord setSeverity(final String severity) {
 		this.severity = severity;
 		return this;
 	}
 	
-	public LogObject build() {
+	public LogBitRecord build() {
 		return this;
 	}
 
