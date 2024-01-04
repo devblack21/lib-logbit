@@ -43,7 +43,7 @@ jobs:
         gpg --keyserver hkps://keys.openpgp.org --recv-key $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
         gpg --batch --delete-secret-key $uid
-        gpg --batch --delete-key $uid
+        gpg --batch --delete-key --yes $uid
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
@@ -52,4 +52,4 @@ jobs:
       run: |
         uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
         gpg --batch --delete-secret-key $uid
-        gpg --batch --delete-key $uid
+        gpg --batch --delete-key --yes $uid
