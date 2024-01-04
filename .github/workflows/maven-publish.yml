@@ -36,11 +36,11 @@ jobs:
       run: |
         gpg --batch --gen-key gen-key-script
         uid=$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5}')
-        gpg --keyserver keyserver.ubuntu.com --send-key $uid
+        gpg --keyserver hkps://keys.openpgp.org --send-key $uid
         echo "waiting..."
         sleep 90
         echo "waiting finish!"
-        gpg --keyserver keyserver.ubuntu.com --recv-key $uid
+        gpg --keyserver hkps://keys.openpgp.org --recv-key $uid
         mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DpomFile=pom.xml
         gpg --batch --delete-secret-key $id
         gpg --batch --delete-key $id
