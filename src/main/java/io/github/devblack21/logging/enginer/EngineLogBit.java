@@ -10,6 +10,7 @@ public interface EngineLogBit {
     void setSubCorrelationId(final String subCorrelationId);
     void setTransactionId(final String transactionId);
     void setFlowName(final String flowName);
+    void clearContext();
     LogBitRecord info(final String logCode, final String msg);
     LogBitRecord info(final String logCode, final String msg, final Object payload);
     LogBitRecord warning(final String logCode, final String msg, final Object payload, final Throwable throwable);

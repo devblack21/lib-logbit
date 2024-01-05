@@ -31,6 +31,10 @@ public class LogBit {
 		logger.setSubCorrelationId(value);
 	}
 
+	public static void clearContext() {
+		logger.clearContext();
+	}
+
 	public static void info(final String logCode,
 							final String msg) {
 		logger.info(logCode, msg);

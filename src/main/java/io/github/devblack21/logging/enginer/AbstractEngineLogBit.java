@@ -35,8 +35,10 @@ public abstract class AbstractEngineLogBit implements EngineLogBit {
         logContext.clear();
         logContext.setApplicationName(logBitConfiguration.getApplicationName());
         logContext.setOrganizationName(logBitConfiguration.getOrganizationName());
+        logContext.setWorkloadName(logBitConfiguration.getWorkflowName());
         logContext.setHostAddress(logBitConfiguration.getHostAddress());
     }
+
     protected static LogBitRecord log(final Level level,
                                       final String logCode,
                                       final String message,
@@ -72,14 +74,14 @@ public abstract class AbstractEngineLogBit implements EngineLogBit {
                 .setTransationId(getTransactionId())
                 .setMessage(message)
                 .setFlowName(logContext.getFlowName())
-                .setApplicationName(logBitConfiguration.getApplicationName())
-                .setOrganizationName(logBitConfiguration.getOrganizationName())
-                .setWorkloadName(logBitConfiguration.getWorkflowName())
+                .setApplicationName(logContext.getApplicationName())
+                .setOrganizationName(logContext.getOrganizationName())
+                .setWorkloadName(logContext.getWorkloadName())
                 .setSeverity(mapLevels.get(level))
                 .setThreadId(String.valueOf(Thread.currentThread().getId()))
                 .setPayload(payload)
                 .setThrowable(throwable)
-                .setHost(logBitConfiguration.getHostAddress())
+                .setHost(logContext.getHostAddress())
                 .setTimeExecution(logContext.getExecutionDuration())
                 .setCurrent(ZonedDateTime.now())
                 .setStart(logContext.isFinish() ? logContext.getStart() : null)
@@ -93,6 +95,11 @@ public abstract class AbstractEngineLogBit implements EngineLogBit {
 
     public void stopTimer() {
         logContext.stopTimer();
+    }
+
+    @Override
+    public void clearContext() {
+        logContext.clear();
     }
 
     @Override
