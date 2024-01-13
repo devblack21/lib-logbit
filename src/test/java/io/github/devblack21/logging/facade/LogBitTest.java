@@ -1,8 +1,9 @@
-package br.com.devblack.logging.facade;
+package io.github.devblack21.logging.facade;
 
-import br.com.devblack.logging.bitlogger.AbstractEngineBitLogger;
-import br.com.devblack.logging.bitlogger.EngineBitLogger;
-import br.com.devblack.logging.configuration.Configuration;
+import io.github.devblack21.logging.LogBit;
+import io.github.devblack21.logging.configuration.LogBitConfiguration;
+import io.github.devblack21.logging.enginer.AbstractEngineLogBit;
+import io.github.devblack21.logging.enginer.DefaultEngineLogBit;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -16,8 +17,8 @@ public class LogBitTest {
 		
 		final String nameMethod = "shouldLogInfo";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", false);
-		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "workflow");
+		final AbstractEngineLogBit engineLogger = new DefaultEngineLogBit(logBitConfiguration);
 		
 		LogBit.configure(engineLogger);
 
@@ -30,8 +31,8 @@ public class LogBitTest {
 
 		final String nameMethod = "shouldLogWarningStartWithPayload";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", false);
-		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "workflow");
+		final AbstractEngineLogBit engineLogger = new DefaultEngineLogBit(logBitConfiguration);
 		LogBit.configure(engineLogger);
 
 		assertThatCode(() -> LogBit.logWarningStart("TESTING", nameMethod, Map.of("key", "value")))
@@ -43,8 +44,8 @@ public class LogBitTest {
 
 		final String nameMethod = "shouldLogWarningStart";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", false);
-		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "workflow");
+		final AbstractEngineLogBit engineLogger = new DefaultEngineLogBit(logBitConfiguration);
 		LogBit.configure(engineLogger);
 
 		assertThatCode(() -> LogBit.logWarningStart("TESTING", nameMethod, null))
@@ -56,8 +57,8 @@ public class LogBitTest {
 
 		final String nameMethod = "shouldLogWarningFinish";
 
-		final Configuration configuration = new Configuration(nameMethod, "testing", false);
-		final AbstractEngineBitLogger engineLogger = new EngineBitLogger(configuration);
+		final LogBitConfiguration logBitConfiguration = new LogBitConfiguration(nameMethod, "testing", "workflow");
+		final AbstractEngineLogBit engineLogger = new DefaultEngineLogBit(logBitConfiguration);
 		LogBit.configure(engineLogger);
 
 		assertThatCode(() -> {

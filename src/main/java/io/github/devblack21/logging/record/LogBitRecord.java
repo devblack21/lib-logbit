@@ -1,4 +1,4 @@
-package br.com.devblack.logging.record;
+package io.github.devblack21.logging.record;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,8 +11,14 @@ import java.util.concurrent.TimeUnit;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LogBitRecord implements Serializable {
-	
+
+	private String applicationName = null;
+	private String organizationName = null;
+	private String workloadName = null;
+	private String flowName = null;
 	private String correlationId = null;
+
+	private String subCorrelationId = null;
 	private String transactionId = null;
 	private String threadId = null;
 	private String logCode = null;
@@ -27,11 +33,31 @@ public class LogBitRecord implements Serializable {
 	private String host = null;
 	
 	private LogBitRecord() {}
-	
+
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public String getWorkloadName() {
+		return workloadName;
+	}
+
+	public String getFlowName() {
+		return flowName;
+	}
+
 	public String getCorrelationId() {
 		return correlationId;
 	}
-	
+
+	public String getSubCorrelationId() {
+		return subCorrelationId;
+	}
+
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -59,7 +85,27 @@ public class LogBitRecord implements Serializable {
 	public String getHost() {
 		return host;
 	}
-	
+
+	public LogBitRecord setApplicationName(final String applicationName) {
+		this.applicationName = applicationName;
+		return this;
+	}
+
+	public LogBitRecord setOrganizationName(final String organizationName) {
+		this.organizationName = organizationName;
+		return this;
+	}
+
+	public LogBitRecord setWorkloadName(final String workloadName) {
+		this.workloadName = workloadName;
+		return this;
+	}
+
+	public LogBitRecord setFlowName(final String flowName) {
+		this.flowName = flowName;
+		return this;
+	}
+
 	public String getStart() {
 		if (Objects.nonNull(start)) return  String.valueOf(this.start.toLocalDateTime());
 		return null;
@@ -90,6 +136,11 @@ public class LogBitRecord implements Serializable {
 	
 	public LogBitRecord setCorrelationId(final String correlationId) {
 		this.correlationId = correlationId;
+		return this;
+	}
+
+	public LogBitRecord setSubCorrelationId(final String subCorrelationId) {
+		this.subCorrelationId = subCorrelationId;
 		return this;
 	}
 	
@@ -152,6 +203,7 @@ public class LogBitRecord implements Serializable {
 		this.severity = severity;
 		return this;
 	}
+
 	
 	public LogBitRecord build() {
 		return this;

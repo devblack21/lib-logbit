@@ -1,7 +1,7 @@
-package br.com.devblack.logging.bitlogger;
+package io.github.devblack21.logging.enginer;
 
-import br.com.devblack.logging.configuration.Configuration;
-import br.com.devblack.logging.record.LogBitRecord;
+import io.github.devblack21.logging.configuration.LogBitConfiguration;
+import io.github.devblack21.logging.record.LogBitRecord;
 
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -14,10 +14,10 @@ import java.util.logging.LogRecord;
 
 import static java.util.logging.Logger.getLogger;
 
-public abstract class AbstractEngineBitLogger {
+public abstract class AbstractEngineLogBit implements EngineLogBit {
 
     private static final Map<Level, String> mapLevels = new HashMap<>();
-    private static Configuration configuration = null;
+    private static LogBitConfiguration logBitConfiguration = null;
     private static final LogContext logContext = new LogContext();
 
     static {
@@ -27,14 +27,18 @@ public abstract class AbstractEngineBitLogger {
         mapLevels.put(Level.WARNING, "WARNING");
     }
 
-    AbstractEngineBitLogger(final Configuration value) {
+    AbstractEngineLogBit(final LogBitConfiguration value) {
         if (Objects.isNull(value)){
-            throw new IllegalArgumentException("Configuration value must not be null");
+            throw new IllegalArgumentException("LogBitConfiguration value must not be null");
         }
-        configuration = value;
+        logBitConfiguration = value;
         logContext.clear();
-        logContext.setConfigurationContext(configuration);
+        logContext.setApplicationName(logBitConfiguration.getApplicationName());
+        logContext.setOrganizationName(logBitConfiguration.getOrganizationName());
+        logContext.setWorkloadName(logBitConfiguration.getWorkflowName());
+        logContext.setHostAddress(logBitConfiguration.getHostAddress());
     }
+
     protected static LogBitRecord log(final Level level,
                                       final String logCode,
                                       final String message,
@@ -49,10 +53,6 @@ public abstract class AbstractEngineBitLogger {
         logRecord.setThreadID(Integer.parseInt(String.valueOf(Thread.currentThread().getId())));
         logRecord.setInstant(Instant.now());
         logRecord.setMessage(logBitRecord.json());
-
-        if (configuration.isThrowable()) {
-            logRecord.setThrown(throwable);
-        }
 
         getLogger(logCode).log(logRecord);
 
@@ -70,13 +70,18 @@ public abstract class AbstractEngineBitLogger {
         return LogBitRecord.init()
                 .setLogCode(logCode)
                 .setCorrelationId(getCorrelationId())
+                .setSubCorrelationId(logContext.getSubCorrelationId())
                 .setTransationId(getTransactionId())
                 .setMessage(message)
+                .setFlowName(logContext.getFlowName())
+                .setApplicationName(logContext.getApplicationName())
+                .setOrganizationName(logContext.getOrganizationName())
+                .setWorkloadName(logContext.getWorkloadName())
                 .setSeverity(mapLevels.get(level))
                 .setThreadId(String.valueOf(Thread.currentThread().getId()))
                 .setPayload(payload)
                 .setThrowable(throwable)
-                .setHost(configuration.getHostAddress())
+                .setHost(logContext.getHostAddress())
                 .setTimeExecution(logContext.getExecutionDuration())
                 .setCurrent(ZonedDateTime.now())
                 .setStart(logContext.isFinish() ? logContext.getStart() : null)
@@ -84,28 +89,44 @@ public abstract class AbstractEngineBitLogger {
                 .build();
     }
 
-    void startTimer() {
+    public void startTimer() {
         logContext.startTimer();
     }
 
-    void stopTimer() {
+    public void stopTimer() {
         logContext.stopTimer();
     }
 
+    @Override
+    public void clearContext() {
+        logContext.clear();
+    }
+
+    @Override
     public void setCorrelationId(final String correlationId) {
         logContext.setCorrelationId(correlationId);
     }
 
-
+    @Override
     public void setTransactionId(final String transactionId) {
         logContext.setTransactionId(transactionId);
+    }
+
+    @Override
+    public void setSubCorrelationId(String subCorrelationId) {
+        logContext.setSubCorrelationId(subCorrelationId);
+    }
+
+    @Override
+    public void setFlowName(final String flowName) {
+        logContext.setFlowName(flowName);
     }
 
     public static String getCorrelationId() {
 
         final String correlationId = logContext.getCorrelationId();
 
-        if (Objects.isNull(correlationId) && configuration.isCorrelationRandom()) {
+        if (Objects.isNull(correlationId) && logBitConfiguration.isCorrelationRandom()) {
             return UUID.randomUUID().toString();
         }
 
@@ -116,35 +137,11 @@ public abstract class AbstractEngineBitLogger {
 
         final String transactionId = logContext.getTransactionId();
 
-        if (Objects.isNull(transactionId) && configuration.isTransactionRandom()) {
+        if (Objects.isNull(transactionId) && logBitConfiguration.isTransactionRandom()) {
             return UUID.randomUUID().toString();
         }
 
         return transactionId;
     }
-
-    public abstract LogBitRecord info(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord warning(final String logCode, final String msg, final Object payload, final Throwable throwable);
-
-    public abstract LogBitRecord warning(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord error(final String logCode, final String msg, final Object payload, final Throwable throwable);
-
-    public abstract LogBitRecord debug(final String logCode, final String msg, final Object payload, final Throwable throwable);
-
-    public abstract LogBitRecord debug(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord logInfoStart(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord logWarningStart(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord logWarningStart(final String logCode, final String msg, final Object payload, final Throwable throwable);
-
-    public abstract LogBitRecord logInfoFinish(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord logWarningFinish(final String logCode, final String msg, final Object payload);
-
-    public abstract LogBitRecord logWarningFinish(final String logCode, final String msg, final Object payload, final Throwable throwable);
 
 }

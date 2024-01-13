@@ -1,32 +1,32 @@
-package br.com.devblack.logging.configuration;
+package io.github.devblack21.logging.configuration;
 
 import java.net.InetAddress;
 
-public class Configuration {
+public class LogBitConfiguration {
 
 	private static final String EMPTY = "";
 	private final String applicationName;
 	private final String organizationName;
+	private final String workflowName;
 	private final String hostAddress;
-	private boolean isThrowable;
 	private boolean isCorrelationRandom = false;
 	private boolean isTransactionRandom = false;
 
-	public Configuration(final String applicationName,
-						 final String organizationName,
-						 final String hostAddress,
-						 final boolean isThrowable) {
+	public LogBitConfiguration(final String applicationName,
+							   final String organizationName,
+							   final String hostAddress,
+							   final String workflowName) {
 
 		this.applicationName = applicationName;
 		this.organizationName = organizationName;
 		this.hostAddress = hostAddress;
-		this.isThrowable = isThrowable;
+		this.workflowName = workflowName;
 	}
 	
-	public Configuration(final String applicationName, final String organizationName, final boolean isThrowable) {
+	public LogBitConfiguration(final String applicationName, final String organizationName, final String  workflowName) {
 		this.applicationName = applicationName;
 		this.organizationName = organizationName;
-		this.isThrowable = isThrowable;
+		this.workflowName = workflowName;
 		this.hostAddress = getHost();
 	}
 	
@@ -36,10 +36,6 @@ public class Configuration {
 		} catch (final Exception e){
 			return EMPTY;
 		}
-	}
-	
-	public boolean isThrowable() {
-		return this.isThrowable;
 	}
 	
 	public String getApplicationName() {
@@ -70,14 +66,6 @@ public class Configuration {
 	public void disableRandomTransaction() {
 		this.isTransactionRandom = false;
 	}
-	
-	public void enableThrowable() {
-		this.isThrowable = true;
-	}
-	
-	public void disableThrowable() {
-		this.isThrowable = false;
-	}
 
 	public boolean isCorrelationRandom() {
 		return isCorrelationRandom;
@@ -85,5 +73,9 @@ public class Configuration {
 
 	public boolean isTransactionRandom() {
 		return isTransactionRandom;
+	}
+
+	public String getWorkflowName() {
+		return workflowName;
 	}
 }
